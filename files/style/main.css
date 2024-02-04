@@ -68,7 +68,6 @@ header > div  {
     margin: auto;
 }
 header #logo {
-    background-image: url(../image/icon.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 46px;

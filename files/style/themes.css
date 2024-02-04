@@ -83,10 +83,6 @@ body.dark-mode header .button,
 body.dark-mode .item.active {
     background-color: rgb(255 255 255 / 12%) !important;
 }
-body.dark-mode header #logo {
-    background-image: url(../image/icon_dark.svg);
-}
-
 
 
 
