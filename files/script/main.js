@@ -6,17 +6,15 @@ $(document).ready(function () {
     var titleColorLight = '#ffffff';
     var titleColorDark = '#313131';
 
-    var link = 'https://arthiagosoubra.github.io/appSharePrint/cliente/';
-    var iconLight = link + website +'/image/icon.svg';
-    var iconDark = link + website +'/image/icon_dark.svg';
-
     var metas = '<meta name="description" content="' + description + '">'+
-                '<title>' + title + '</title>' +
-                '<link rel="icon" href="'+ link + website +'/image/favicon.ico" type="image/x-icon">'+
-                '<script src="'+ link + website +'/data.js"></script>';
+                '<title>' + title + '</title>';
 
     $('.picIt .header .data').html(data);
     $(metas).appendTo('head');
+
+    var iconLink = 'https://'+ website +'.github.io/adm/';
+    var iconLight = iconLink +'icon.svg';
+    var iconDark = iconLink +'icon_dark.svg';
 
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     function toggleDarkMode() {
