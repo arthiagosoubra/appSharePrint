@@ -4,6 +4,9 @@ $(document).ready(function () {
 
     var titleColorLight = '#ffffff';
     var titleColorDark = '#313131';
+    var iconLink = 'https://arthiagosoubra.github.io/appSharePrint/cliente/';
+    var iconLight = iconLink + website +'/image/icon.svg';
+    var iconDark = iconLink + website +'/image/icon_dark.svg';
 
     var metas = 
     '<meta name="description" content="' + description + '">'+
@@ -11,6 +14,7 @@ $(document).ready(function () {
 
     $('.picIt .header .data').html(data);
     $(metas).appendTo('head');
+
 
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     function toggleDarkMode() {
@@ -23,9 +27,11 @@ $(document).ready(function () {
         if (darkMode) {
             $('head').append('<meta name="msapplication-TileColor" content="' + titleColorDark + '">' +
                             '<meta name="theme-color" content="' + titleColorDark + '">');
+                            $('body.dark-mode header #logo').css('background-image', 'url('+iconDark+')');
         } else {
             $('head').append('<meta name="msapplication-TileColor" content="' + titleColorLight + '">' +
                             '<meta name="theme-color" content="' + titleColorLight + '">');
+                            $('header #logo').css('background-image', 'url('+iconLight+')');
         }
     }
     $(metas).appendTo('head');
