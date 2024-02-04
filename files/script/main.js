@@ -2,19 +2,21 @@
 
 $(document).ready(function () {
 
+    // VARIÁVEIS DE CLIENTES
     var titleColorLight = '#ffffff';
     var titleColorDark = '#313131';
-    var iconLink = 'https://arthiagosoubra.github.io/appSharePrint/cliente/';
-    var iconLight = iconLink + website +'/image/icon.svg';
-    var iconDark = iconLink + website +'/image/icon_dark.svg';
 
-    var metas = 
-    '<meta name="description" content="' + description + '">'+
-    '<title>' + title + '</title>';
+    var link = 'https://arthiagosoubra.github.io/appSharePrint/cliente/';
+    var iconLight = link + website +'/image/icon.svg';
+    var iconDark = link + website +'/image/icon_dark.svg';
+
+    var metas = '<meta name="description" content="' + description + '">'+
+                '<title>' + title + '</title>' +
+                '<link rel="icon" href="'+ link + website +'/image/favicon.ico" type="image/x-icon">'+
+                '<script src="'+ link + website +'/data.js"></script>';
 
     $('.picIt .header .data').html(data);
     $(metas).appendTo('head');
-
 
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     function toggleDarkMode() {
