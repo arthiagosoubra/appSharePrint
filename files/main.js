@@ -12,9 +12,9 @@ $(document).ready(function () {
     $('.picIt .header .data').html(data);
     $(metas).appendTo('head');
 
-    var iconLink = 'https://arthiagosoubra.github.io/appSharePrint/cliente/';
-    var iconLight = iconLink + website +'/image/icon.svg';
-    var iconDark = iconLink + website +'/image/icon_dark.svg';
+    var iconLink = 'https://'+ website +'.github.io/adm/';
+    var iconLight = iconLink +'icon.svg';
+    var iconDark = iconLink +'icon_dark.svg';
 
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     function toggleDarkMode() {
