@@ -111,7 +111,7 @@ function exibirAviso(mensagem) {
     avisoDiv.find('span').text(mensagem);
 
     avisoDiv.css({
-        top: '-80px'
+        top: '-120px'
     }).animate({
         top: 0
     }, 200, function () {
