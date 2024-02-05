@@ -481,7 +481,7 @@ button.addItem.off, button.concluir.off {
     font-size: 14px;
     z-index: 2;
     transition: 0.1s;
-    top: -70px;
+    top: -100px;
 }
 #noItens {
     text-align: center;
