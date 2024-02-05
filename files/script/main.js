@@ -111,13 +111,13 @@ function exibirAviso(mensagem) {
     avisoDiv.find('span').text(mensagem);
 
     avisoDiv.css({
-        top: '-120px'
+        top: '-100px'
     }).animate({
         top: 0
     }, 200, function () {
         setTimeout(function () {
             avisoDiv.animate({
-                top: '-80px'
+                top: '-100px'
             }, 200);
         }, 3000); // Após 3 segundos, inicia a animação para esconder o aviso
     });
@@ -363,6 +363,15 @@ $('.popup.share input').on('input', function(){
         });
         generateQRCode();
     } //end
+
+        $('.item').each(function () {
+            var $item = $(this);
+            var discr = $item.find('.discr');
+            var quantInput = $item.find('.quant input');
+            discr.click(function() {
+                quantInput.focus();
+            });
+        });
 
     $(".finish_print, .popup.concluir input").on("click keypress", function (event) {
         if ((event.type === "click" && event.target.tagName !== "INPUT") ||
