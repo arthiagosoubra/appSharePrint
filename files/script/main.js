@@ -433,7 +433,9 @@ $('.popup.share input').on('input', function(){
 
 
 
-
+var pixKey = '+5583986612160'; // Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
+    var destinatario = 'EDNA LUCIA SOUTO BRASILEIRO'; // Digite aqui o destinatário
+    var cidade = 'SAO PAULO'; // Digite aqui a cidade com máximo de 24 caracteres
 
 // GERAR PIX
 var payload = "";
@@ -441,11 +443,7 @@ var payload = "";
 function generateQRCode() {
     var rawPixValue = $('.total').text();
     var pixValue = parseFloat(rawPixValue.replace('R$', '').trim().replace(',', '.')) || 0;
-
-    var pixKey = '+5583987593831'; // Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
-    var destinatario = 'THIAGO SOUTO BRASILEIRO'; // Digite aqui o destinatário
-    var cidade = 'SAO PAULO'; // Digite aqui a cidade com máximo de 24 caracteres
-
+    
     // Construindo o Payload PIX a partir dos dados adicionados.
     payload = buildPixPayload(pixKey, pixValue, destinatario, cidade);
 
