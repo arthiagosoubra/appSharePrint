@@ -104,7 +104,7 @@ $(document).ready(function () {
                 $item.find('.valor').text('em falta');
                 $item.find('.punit input').css('display', 'none');
                 $item.find('.quant input').css('display', 'none');
-                $(this).vibrate("medium");
+                vibrate("medium");
                 atualizarContagemItens();
             }
         }, 800);
