@@ -91,14 +91,16 @@ $(document).ready(function () {
         clearTimeout(pressTimer);
     
         pressTimer = window.setTimeout(function() {
-            $(this).vibrate("medium");
+            
             if ($item.hasClass('longClicked')) {
+                $(this).vibrate("medium");
                 $item.removeClass('longClicked');
                 $item.find('.valor').text('-');
                 $item.find('.punit input').css('display', 'block');
                 $item.find('.quant input').css('display', 'block');
                 atualizarContagemItens();
             } else {
+                $(this).vibrate("medium");
                 $item.addClass('longClicked');
                 $item.find('.valor').text('em falta');
                 $item.find('.punit input').css('display', 'none');
