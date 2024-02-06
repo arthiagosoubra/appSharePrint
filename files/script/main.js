@@ -93,18 +93,18 @@ $(document).ready(function () {
         pressTimer = window.setTimeout(function() {
             
             if ($item.hasClass('longClicked')) {
-                $(this).vibrate("medium");
+                vibrate("medium");
                 $item.removeClass('longClicked');
                 $item.find('.valor').text('-');
                 $item.find('.punit input').css('display', 'block');
                 $item.find('.quant input').css('display', 'block');
                 atualizarContagemItens();
             } else {
-                $(this).vibrate("medium");
                 $item.addClass('longClicked');
                 $item.find('.valor').text('em falta');
                 $item.find('.punit input').css('display', 'none');
                 $item.find('.quant input').css('display', 'none');
+                $(this).vibrate("medium");
                 atualizarContagemItens();
             }
         }, 800);
