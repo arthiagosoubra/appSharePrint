@@ -93,7 +93,7 @@ $(document).ready(function () {
         pressTimer = window.setTimeout(function() {
             
             if ($item.hasClass('longClicked')) {
-                vibrate("medium");
+                $("section #list").vibrate("medium");
                 $item.removeClass('longClicked');
                 $item.find('.valor').text('-');
                 $item.find('.punit input').css('display', 'block');
@@ -104,7 +104,7 @@ $(document).ready(function () {
                 $item.find('.valor').text('em falta');
                 $item.find('.punit input').css('display', 'none');
                 $item.find('.quant input').css('display', 'none');
-                vibrate("medium");
+                $("section #list").vibrate("medium");
                 atualizarContagemItens();
             }
         }, 800);
