@@ -59,8 +59,6 @@ header {
     box-sizing: border-box;
     z-index: 2;
     top: 0;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
 }
 header > div  {
     position: relative;
@@ -157,6 +155,8 @@ section .list {
 }
 section .head.list {
     top: 60px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 section .foot.list {
     bottom: 0;
