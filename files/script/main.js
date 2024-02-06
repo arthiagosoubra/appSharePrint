@@ -105,7 +105,7 @@ $(document).ready(function () {
                 $item.find('.quant input').css('display', 'none');
                 atualizarContagemItens();
             }
-            navigator.vibrate(200);
+            navigator.vibrate(50);
         }, 800);
     });
     
