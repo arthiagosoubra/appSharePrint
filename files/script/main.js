@@ -91,6 +91,7 @@ $(document).ready(function () {
         clearTimeout(pressTimer);
     
         pressTimer = window.setTimeout(function() {
+            $(this).vibrate("medium");
             if ($item.hasClass('longClicked')) {
                 $item.removeClass('longClicked');
                 $item.find('.valor').text('-');
