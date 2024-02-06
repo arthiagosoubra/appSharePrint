@@ -506,16 +506,6 @@ $('.popup.share input').on('input', function(){
 
 
 
-
-
-
-
-
-
-var pixKey = '+5583987593831'; // Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
-    var destinatario = 'THIAGO SOUTO BRASILEIRO'; // Digite aqui o destinatário
-    var cidade = 'SAO PAULO'; // Digite aqui a cidade com máximo de 24 caracteres
-
 // GERAR PIX
 var payload = "";
 // Função principal para gerar o QR Code
