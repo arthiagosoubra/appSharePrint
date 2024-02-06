@@ -516,8 +516,8 @@ $('.popup.share input').on('input', function(){
 
 
 
-var pixKey = '003286015431'; // Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
-    var destinatario = 'EDNA LUCIA SOUTO BRASILEIRO'; // Digite aqui o destinatário
+var pixKey = '5a0f174b-4c43-4d45-be37-f8c42289f621'; // Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
+    var destinatario = 'THIAGO SOUTO BRASILEIRO'; // Digite aqui o destinatário
     var cidade = 'SAO PAULO'; // Digite aqui a cidade com máximo de 24 caracteres
 
 // GERAR PIX
