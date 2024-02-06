@@ -41,21 +41,83 @@ $(document).ready(function () {
 
     ///
 
+
+
+    
+
+
+
+
     function gerarDiv(item) {
         var newItem = $('<div class="item"></div>');
-
         newItem.append('<div class="discr">' + item.discr + '</div>');
         newItem.append('<div class="quant"><input type="text" inputmode="numeric" maxlength="6" placeholder="' + item.medida + '" /></div>');
         newItem.append('<div class="punit"><input type="text" inputmode="numeric" maxlength="6" value="' + item.pUnit + '" /></div>');
         newItem.append('<div class="valor">-</div>');
-
+        var divs = $('section #list .item');
+        var insertIndex = divs.length;
+        divs.each(function (index) {
+            var currentDiscr = $(this).find('.discr').text().toUpperCase();
+            var newDiscr = item.discr.toUpperCase();
+            if (newDiscr < currentDiscr) {
+                insertIndex = index;
+                return false;
+            }
+        });
+        if (insertIndex === divs.length) {
+            $('section #list').append(newItem);
+        } else {
+            divs.eq(insertIndex).before(newItem);
+        }
         return newItem;
     }
-
     items.forEach(function (item) {
-        $('section #list').append(gerarDiv(item));
+        gerarDiv(item);
     });
-    var totalItens = 0;
+    
+
+
+
+
+
+
+    var pressTimer;
+
+    $('section #list').on("mousedown touchstart", '.item', function(event) {
+        var $item = $(this);
+        var itemIndex = $item.index(); // Obter o índice do item na lista
+        var currentItem = items[itemIndex]; // Obter o item correspondente no array 'items'
+    
+        clearTimeout(pressTimer);
+    
+        pressTimer = window.setTimeout(function() {
+            if ($item.hasClass('longClicked')) {
+                $item.removeClass('longClicked');
+                $item.find('.valor').text('-');
+                $item.find('.punit input').css('display', 'block');
+                $item.find('.quant input').css('display', 'block');
+                atualizarContagemItens();
+            } else {
+                $item.addClass('longClicked');
+                $item.find('.valor').text('em falta');
+                $item.find('.punit input').css('display', 'none');
+                $item.find('.quant input').css('display', 'none');
+                atualizarContagemItens();
+            }
+        }, 800);
+    });
+    
+    $('section #list').on("mouseup touchend", '.item', function() {
+        clearTimeout(pressTimer);
+    });
+    
+
+
+
+
+
+
+
 
 // Definir formatCurrency fora da função calcularResultado
 function formatCurrency(input) {
@@ -153,7 +215,7 @@ function atualizarContagemItens() {
 
     var concluirElement = $('button.concluir');
 
-    if (count >= 1) {
+    if (count >= 1 || $('.item').hasClass('longClicked')) {
         concluirElement.removeClass('off');
     } else {
         concluirElement.addClass('off');
@@ -162,7 +224,6 @@ function atualizarContagemItens() {
 
 // Chame a função inicialmente para garantir que o estado inicial seja configurado corretamente
 atualizarContagemItens();
-
 
     $('.quant input, .punit input').on('input', calcularResultado);
 
@@ -227,13 +288,15 @@ atualizarContagemItens();
                 discr: discr,
                 pUnit: pUnit
             };
-
-            var newItem = gerarDiv(newItem);
-            $('section #list').append(newItem);
+    
+            var newItemElement = gerarDiv(newItem);
+            // Use prependTo para adicionar o novo item no topo da lista
+            newItemElement.prependTo('section #list');
+    
             $("#unitType, #discr, #punit").val("");
-
-            fecharPopup()
+            fecharPopup();
             atualizarContagemItens();
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         }
     });
 
@@ -333,27 +396,33 @@ $('.popup.share input').on('input', function(){
         }
     }
 
+    
     function gerarTabela() {
         $('#tabela tr:not(.head)').remove();
         $('.item').each(function () {
             var $item = $(this);
             var inputValue1 = $item.find('.quant input').val().replace('.', ',');
     
-            if (inputValue1.trim() !== "") {
+            if (inputValue1.trim() !== "" || $item.hasClass('longClicked')) {
                 var discr = $item.find('.discr').text();
                 var value1type = $item.find('.quant input').attr('placeholder');
                 var inputValue2 = $item.find('.punit input').val().replace('.', ',');
                 var valor = $item.find('.valor').text().replace('.', ',');
     
                 var newRow = $('<tr></tr>');
+
+                if ($item.hasClass('longClicked')) {
+                    newRow.append('<td class="left">-</td>');
+                } else {
+                    newRow.append('<td class="left">' + inputValue1 + " " + value1type + '</td>');
+                }
     
-                newRow.append('<td class="left">' + inputValue1 + " " + value1type + '</td>');
                 newRow.append('<td class="left">' + discr + '</td>');
                 
-                if (inputValue2 !== valor) {
-                    newRow.append('<td class="right">' + inputValue2 + '</td>');
-                } else {
+                if (inputValue2 == valor || $item.hasClass('longClicked')) {
                     newRow.append('<td class="right">-</td>');
+                } else {
+                    newRow.append('<td class="right">' + inputValue2 + '</td>');
                 }
                 
                 newRow.append('<td class="right">' + valor + '</td>');
@@ -364,14 +433,21 @@ $('.popup.share input').on('input', function(){
         generateQRCode();
     } //end
 
-        $('.item').each(function () {
-            var $item = $(this);
-            var discr = $item.find('.discr');
-            var quantInput = $item.find('.quant input');
-            discr.click(function() {
-                quantInput.focus();
-            });
+    $('.item').each(function () {
+        var $item = $(this);
+        var discr = $item.find('.discr');
+        var quantInput = $item.find('.quant input');
+    
+        // Adiciona manipuladores de eventos tanto para clique quanto para toque
+        discr.on('click touchstart', function(event) {
+            // Previne o comportamento padrão do evento (por exemplo, abrir um link)
+            event.preventDefault();
+    
+            // Foca no input
+            quantInput.focus();
         });
+    });
+    
 
     $(".finish_print, .popup.concluir input").on("click keypress", function (event) {
         if ((event.type === "click" && event.target.tagName !== "INPUT") ||
