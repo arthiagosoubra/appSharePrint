@@ -191,6 +191,11 @@ function exibirAviso(mensagem) {
 // Adicione um evento de click no documento para lidar com botões concluir, mesmo os dinâmicos
 $(document).on("click", "button.concluir:not(.off)", function() {
     abrirPopup(".popup.concluir", '.popup.concluir input');
+    navigator.vibrate(20);
+});
+
+$("#list input").on("click", function() {
+    navigator.vibrate(5);
 });
 
 // Adicione um evento de click no documento para lidar com botões concluir que estão desabilitados
