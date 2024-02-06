@@ -204,6 +204,9 @@ section .shadow.foot {
     border-radius: 12px;
     transition: 0.2s;
 }
+.item.longClicked .quant input::placeholder {
+    color: transparent;
+}
 .head.list > div {
     z-index: 1;
     position: absolute;
