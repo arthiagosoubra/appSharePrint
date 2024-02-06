@@ -155,8 +155,6 @@ section .list {
 }
 section .head.list {
     top: 60px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
 }
 section .foot.list {
     bottom: 0;
@@ -200,13 +198,25 @@ section .shadow.foot {
 /* section > item */
 .item {
     height: 42px;
+    width: 100%;
+    margin: 8px 0;
+    position: relative;
+}
+.item .line {
+    position: absolute;
+    height: 100%;
+    width: 100%;
     line-height: 42px;
     font-size: 14px;
-    margin: 8px 0;
     border-radius: 12px;
     transition: 0.2s;
 }
-.item.longClicked .quant input::placeholder {
+.line.hover {
+    transform: scale(1.05);
+    z-index: 1;
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.25);
+}
+.item > line.longClicked .quant input::placeholder {
     color: transparent;
 }
 .head.list > div {
@@ -217,7 +227,7 @@ section .shadow.foot {
     padding: 0 16px;
     box-sizing: border-box;
 }
-.item div , .head.list div div {
+.item .line div, .head.list div div {
     height: 100%;
     float: left;
 }
@@ -382,7 +392,7 @@ footer div {
     padding: 20px;
     background-color: #fffeea;
 }
-.header, .copy, .footer p, .footer div, .item div, .item div input[type="text"] {
+.header, .copy, .footer p, .footer div, .item .line div, .item .line div input[type="text"] {
     text-align: center;
 }
 .header div, .footer, .item .discr {
