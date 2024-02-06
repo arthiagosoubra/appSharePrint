@@ -49,13 +49,15 @@ $(document).ready(function () {
 
 
     function gerarDiv(item) {
-        var newItem = $('<div class="item"></div>');
-        newItem.append('<div class="discr">' + item.discr + '</div>');
-        newItem.append('<div class="quant"><input type="text" inputmode="numeric" maxlength="6" placeholder="' + item.medida + '" /></div>');
-        newItem.append('<div class="punit"><input type="text" inputmode="numeric" maxlength="6" value="' + item.pUnit + '" /></div>');
-        newItem.append('<div class="valor">-</div>');
+        var newItem = $('<div class="item"><div class="line"></div></div>'); // Criar div interna
+        newItem.find('.line').append('<div class="discr">' + item.discr + '</div>');
+        newItem.find('.line').append('<div class="quant"><input type="text" inputmode="numeric" maxlength="6" placeholder="' + item.medida + '" /></div>');
+        newItem.find('.line').append('<div class="punit"><input type="text" inputmode="numeric" maxlength="6" value="' + item.pUnit + '" /></div>');
+        newItem.find('.line').append('<div class="valor">-</div>');
+    
         var divs = $('section #list .item');
         var insertIndex = divs.length;
+    
         divs.each(function (index) {
             var currentDiscr = $(this).find('.discr').text().toUpperCase();
             var newDiscr = item.discr.toUpperCase();
@@ -64,16 +66,20 @@ $(document).ready(function () {
                 return false;
             }
         });
+    
         if (insertIndex === divs.length) {
             $('section #list').append(newItem);
         } else {
             divs.eq(insertIndex).before(newItem);
         }
+    
         return newItem;
-    }
+    };
+    
     items.forEach(function (item) {
         gerarDiv(item);
     });
+    
     
 
 
@@ -83,33 +89,31 @@ $(document).ready(function () {
 
     var pressTimer;
 
-    $('section #list').on("mousedown touchstart", '.item', function(event) {
+    $('section #list').on("mousedown touchstart", '.item .line', function(event) {
         var $item = $(this);
-        var itemIndex = $item.index(); // Obter o índice do item na lista
-        var currentItem = items[itemIndex]; // Obter o item correspondente no array 'items'
     
         clearTimeout(pressTimer);
     
         pressTimer = window.setTimeout(function() {
-            
             if ($item.hasClass('longClicked')) {
-                $item.removeClass('longClicked');
-                $item.find('.valor').text('-');
-                $item.find('.punit input').css('display', 'block');
-                $item.find('.quant input').css('display', 'block');
-                atualizarContagemItens();
+                    $item.removeClass('longClicked');
+                    $item.find('.valor').text('-');
+                    $item.find('.punit input').css('display', 'block');
+                    $item.find('.quant input').css('display', 'block');
+                    $item.find('.valor').css('display', 'block');
             } else {
-                $item.addClass('longClicked');
-                $item.find('.valor').text('em falta');
-                $item.find('.punit input').css('display', 'none');
-                $item.find('.quant input').css('display', 'none');
-                atualizarContagemItens();
+                    $item.addClass('longClicked');
+                    $item.find('.valor').text('em falta');
+                    $item.find('.punit input').css('display', 'none');
+                    $item.find('.quant input').css('display', 'none');
+                    $item.find('.quant input').val('');
             }
             navigator.vibrate(50);
+                    calcularResultado.call($item);
         }, 800);
     });
     
-    $('section #list').on("mouseup touchend", '.item', function() {
+    $('section #list').on("mouseup touchend", '.item .line', function() {
         clearTimeout(pressTimer);
     });
     
@@ -142,27 +146,31 @@ $('section #list').on('input', '.quant input', function() {
   });
 
 function calcularResultado() {
-    var $item = $(this).closest('.item');
-    var inputValue1 = $item.find('.quant input').val().replace(',', '.');
-    var rawPixValue = $item.find('.punit input').val();
+    var $item = $(this);
+    var theItem = $item.closest('.item .line');
+    var inputValue1 = theItem.find('.quant input').val().replace(',', '.');
+    var rawPixValue = theItem.find('.punit input').val();
     var inputValue2 = parseFloat(rawPixValue.trim().replace(',', '.')) || 0;
 
     var valor = parseFloat(inputValue1) * parseFloat(inputValue2);
-    $item.find('.valor').text(valor.toFixed(2));
     
-    if (isNaN(parseFloat(inputValue1)) || isNaN(parseFloat(inputValue2))) {
-        $item.find('.valor').text('-');
-    }
 
-    atualizarTotal();
-    atualizarContagemItens();
-
-    if (parseFloat(inputValue1) > 0) {
-        $item.addClass('active');
+    if ($(theItem).hasClass('longClicked')) {
+        theItem.find('.valor').text('em falta');
     } else {
-        $item.removeClass('active');
-    }
+        theItem.find('.valor').text(valor.toFixed(2));
 
+        if (isNaN(parseFloat(inputValue1)) || isNaN(parseFloat(inputValue2))) {
+            theItem.find('.valor').text('-');
+        }
+        
+        if (parseFloat(inputValue1) > 0) {
+            theItem.addClass('active');
+        } else {
+            theItem.removeClass('active');
+        }
+    };
+    atualizarTotal();
     atualizarContagemItens();
 }
 
@@ -183,27 +191,19 @@ function exibirAviso(mensagem) {
             avisoDiv.animate({
                 top: '-100px'
             }, 200);
-        }, 3000); // Após 3 segundos, inicia a animação para esconder o aviso
+        }, 3000);
     });
 }
 
 
-// Adicione um evento de click no documento para lidar com botões concluir, mesmo os dinâmicos
 $(document).on("click", "button.concluir:not(.off)", function() {
     abrirPopup(".popup.concluir", '.popup.concluir input');
-    navigator.vibrate(20);
 });
 
-$("#list input").on("click", function() {
-    navigator.vibrate(5);
-});
-
-// Adicione um evento de click no documento para lidar com botões concluir que estão desabilitados
 $(document).on("click", "button.concluir.off", function() {
     exibirAviso('Nenhum item selecionado');
 });
 
-// Adicione um evento de mudança nos inputs para atualizar a contagem e o estado do botão
 $('.quant input').on('change', function() {
     atualizarContagemItens();
 });
@@ -212,7 +212,12 @@ function atualizarContagemItens() {
     var count = 0;
     $('.quant input').each(function() {
         var inputValue = parseFloat($(this).val().replace(',', '.'));
-        if (!isNaN(inputValue) && inputValue > 0) {
+        if (!isNaN(inputValue) && inputValue > 0 ) {
+            count++;
+        }
+    });
+    $('.item .line').each(function() {
+        if ($(this).hasClass('longClicked')) {
             count++;
         }
     });
@@ -222,21 +227,17 @@ function atualizarContagemItens() {
 
     var concluirElement = $('button.concluir');
 
-    if (count >= 1 || $('.item').hasClass('longClicked')) {
+    if (count >= 1 || $('.item .line').hasClass('longClicked')) {
         concluirElement.removeClass('off');
     } else {
         concluirElement.addClass('off');
     }
 }
-
-// Chame a função inicialmente para garantir que o estado inicial seja configurado corretamente
 atualizarContagemItens();
 
-    $('.quant input, .punit input').on('input', calcularResultado);
+$('.quant input, .punit input').on('input', calcularResultado);
 
-    $('.quant input, .punit input').on('input', function () {
-        atualizarContagemItens();
-    });
+$('.quant input, .punit input').on('input', function () { atualizarContagemItens(); });
     
     $('#search input').on('input', function () {
         var searchTerm = $(this).val().toLowerCase();
@@ -260,14 +261,14 @@ atualizarContagemItens();
                 total += valor;
             }
         });
-        $('.total').text('R$' + total.toFixed(2).replace('.', ','));
+        $('.total').text('R$ ' + total.toFixed(2).replace('.', ','));
     }
 
     $('#discr').on('input', function() {
         var valorInput = $(this).val();
         var capitalizedInput = capitalizeFirst(valorInput);
         
-        $(this).val(capitalizedInput); // Atualiza o valor do input com a versão capitalizada
+        $(this).val(capitalizedInput);
     
         if (capitalizedInput.length > 0) {
             $('button.addItem').removeClass('off');
@@ -297,7 +298,6 @@ atualizarContagemItens();
             };
     
             var newItemElement = gerarDiv(newItem);
-            // Use prependTo para adicionar o novo item no topo da lista
             newItemElement.prependTo('section #list');
     
             $("#unitType, #discr, #punit").val("");
@@ -320,7 +320,6 @@ atualizarContagemItens();
       });
 
     $('#search input').on('input', function() {
-        // Verifica se o input está vazio
         if ($(this).val() === '') {
           $('#search button.i_close').hide();
         } else {
@@ -365,7 +364,7 @@ atualizarContagemItens();
     
         $popup.css({
             top: -popupHeight,
-            display: 'block' // Garante que o popup está visível antes da animação
+            display: 'block'
         }).animate({
             top: 0
         }, 300);
@@ -406,7 +405,7 @@ $('.popup.share input').on('input', function(){
     
     function gerarTabela() {
         $('#tabela tr:not(.head)').remove();
-        $('.item').each(function () {
+        $('.item .line').each(function () {
             var $item = $(this);
             var inputValue1 = $item.find('.quant input').val().replace('.', ',');
     
@@ -414,7 +413,7 @@ $('.popup.share input').on('input', function(){
                 var discr = $item.find('.discr').text();
                 var value1type = $item.find('.quant input').attr('placeholder');
                 var inputValue2 = $item.find('.punit input').val().replace('.', ',');
-                var valor = $item.find('.valor').text().replace('.', ',');
+                var valor = $item.find('.valor').text().replace('.', ',').replace('em falta', 'falta');
     
                 var newRow = $('<tr></tr>');
 
@@ -440,19 +439,16 @@ $('.popup.share input').on('input', function(){
         generateQRCode();
     } //end
 
-    $('.item').each(function () {
+    $('section #list').on('click', '.item .line', function(event) {
         var $item = $(this);
-        var discr = $item.find('.discr');
-        var quantInput = $item.find('.quant input');
-    
-        // Adiciona manipuladores de eventos tanto para clique quanto para toque
-        discr.on('click touchstart', function(event) {
-            // Previne o comportamento padrão do evento (por exemplo, abrir um link)
-            event.preventDefault();
-    
-            // Foca no input
-            quantInput.focus();
-        });
+        $('.item .line').removeClass('hover');
+        $item.addClass('hover');
+        if ($(event.target).is('.discr, .valor')) {
+            var quantInput = $item.find('.quant input');
+            setTimeout(function() {
+                quantInput.focus();
+            }, 0);
+        }
     });
     
 
@@ -516,7 +512,7 @@ $('.popup.share input').on('input', function(){
 
 
 
-var pixKey = '5a0f174b-4c43-4d45-be37-f8c42289f621'; // Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
+var pixKey = '+5583987593831'; // Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
     var destinatario = 'THIAGO SOUTO BRASILEIRO'; // Digite aqui o destinatário
     var cidade = 'SAO PAULO'; // Digite aqui a cidade com máximo de 24 caracteres
 
