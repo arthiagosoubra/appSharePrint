@@ -93,21 +93,19 @@ $(document).ready(function () {
         pressTimer = window.setTimeout(function() {
             
             if ($item.hasClass('longClicked')) {
-                $(".item").vibrate("medium");
                 $item.removeClass('longClicked');
                 $item.find('.valor').text('-');
                 $item.find('.punit input').css('display', 'block');
                 $item.find('.quant input').css('display', 'block');
                 atualizarContagemItens();
             } else {
-                $(".item").vibrate("medium");
                 $item.addClass('longClicked');
                 $item.find('.valor').text('em falta');
                 $item.find('.punit input').css('display', 'none');
                 $item.find('.quant input').css('display', 'none');
                 atualizarContagemItens();
             }
-            $(this).vibrate("medium")
+            navigator.vibrate(200);
         }, 800);
     });
     
