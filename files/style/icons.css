@@ -20,7 +20,6 @@
 	font-style: normal;
 }
 
-.i_logo:before { content: "a"; }
 .i_print:before { content: "b"; }
 .i_plus:before { content: "c"; }
 .i_share:before { content: "d"; }
