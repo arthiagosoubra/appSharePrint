@@ -36,6 +36,9 @@ $(document).ready(function () {
     }
     $(metas).appendTo('head');
     $('.picIt .logo').html(logo);
+    $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
+    $('.popup .foot button').css('background-color',color);
+    $('input[type="text"]').css('caret-color',color);
 
     toggleDarkMode();
     darkModeMediaQuery.addListener(toggleDarkMode);
