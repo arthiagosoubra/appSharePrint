@@ -79,7 +79,6 @@ header #logo {
     margin: auto;
     top: 0;
     bottom: 0;
-    border-radius: 50%;
 }
 header #nav {
     position: absolute;
