@@ -70,7 +70,6 @@ header > div  {
 header #logo {
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 46px;
     z-index: 1;
     position: absolute;
     left: 0;
