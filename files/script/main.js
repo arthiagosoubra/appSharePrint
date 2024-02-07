@@ -49,7 +49,7 @@ $(document).ready(function () {
 
 
 $('<div class="header">'+
-            '<div class="logo"></div>"+
+            '<div class="logo"></div>'+
             '<div class="data">'+data+'</div>'+
         '</div>'+
         '<table id="tabela">'+
