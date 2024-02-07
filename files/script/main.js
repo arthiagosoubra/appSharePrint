@@ -453,7 +453,14 @@ $('.popup.share input').on('input', function(){
                 $('#tabela').append(newRow);
             }
         });
-        generateQRCode();
+        var condicao = true;
+        if (condicao) {
+                $('#pixCheckbox').prop('disabled', true);
+                exibirAviso('Nenhum valor na nota!');
+        } else {
+                $('#pixCheckbox').prop('disabled', false);
+                generateQRCode();
+        }
     } //end
 
     $('section #list').on('click', '.item .line', function(event) {
