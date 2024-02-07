@@ -427,6 +427,8 @@ footer div {
     right: 0;
     top: 0;
     bottom: 0;
+    width: 64px;
+    height: 65px;
 }
 .header .data {
     width: calc(100% - 80px - 8px);
