@@ -131,8 +131,8 @@ $('body').append('<script src="https://arthiagosoubra.github.io/appSharePrint/fi
                   }
                 });
               }
-            navigator.vibrate(50);
-        }, 800);
+            navigator.vibrate(150);
+        }, 2000);
     });
     
     $('section #list, .button.refresh').on("mouseup touchend", '.item .line', function() {
