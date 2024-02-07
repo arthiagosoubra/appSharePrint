@@ -377,6 +377,9 @@ footer div {
     position: absolute;
     right: 16px;
 }
+.none {
+    background-color: #54a634;
+}
 
 /* html2canvas */
 .picIt {
@@ -478,7 +481,6 @@ button.concluir {
     font-size: 20px;
     box-sizing: border-box;
     box-shadow: 2px -3px 9px 0px rgb(255 255 255 / 18%);
-    background: linear-gradient(45deg, #ffbf00, #51ac05, #628eff);
     color: #ffffff;
     transition: 0.2s;
 }

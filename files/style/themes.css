@@ -75,13 +75,6 @@ input[type="text"]:focus,
 input[type="checkbox"] + label:before {
     border: none !important;
 }
-.popup .foot button,
-.none {
-    background-color: #54a634;
-}
-input[type="text"] {
-    caret-color: #51ac05;
-}
 .picIt * {
     color: #000000 !important;
 }
