@@ -196,23 +196,22 @@ function calcularResultado() {
 }
 
 
-
-
     function updateCheckbox() {
         var rawPixValue = $('.total').text();
         var total = parseFloat(rawPixValue.replace('R$', '').trim().replace(',', '.')) || 0;
         var pixCheckbox = $('#pixCheckbox');
         if (total < 1) {
             pixCheckbox.prop('disabled', true);
-            $(".popup.concluir label").click(function() {
+            $(".popup.concluir label").off('click').click(function() {
                 exibirAviso('Nenhum valor na nota!');
             });
         } else {
             pixCheckbox.prop('disabled', false);
+            $(".popup.concluir label").off('click');
         }
     }
-    $('.total').on('change', updateCheckbox);
 
+    $('.total').on('change', updateCheckbox);
 
             
 
