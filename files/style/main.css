@@ -416,9 +416,17 @@ footer div {
     position: relative;
 }
 .header .logo {
-    font-family: 'BHicons';
-    font-size: 80px;
     width: 80px;
+    height: 80px;
+    position: relative;
+}
+header .logo svg {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 .header .data {
     width: calc(100% - 80px - 8px);
