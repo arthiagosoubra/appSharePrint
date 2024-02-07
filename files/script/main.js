@@ -9,7 +9,7 @@ $(document).ready(function () {
     var metas = '<meta name="description" content="' + description + '">'+
                 '<title>' + title + '</title>';
     $(metas).appendTo('head');
-    $('.picIt .header .data).html(data);
+    $('.picIt .header .data').html(data);
 
     var iconLink = 'https://'+ website +'.github.io/adm/';
     var iconLight = iconLink +'icon.svg';
