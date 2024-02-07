@@ -420,7 +420,7 @@ footer div {
     height: 80px;
     position: relative;
 }
-header .logo svg {
+.header .logo svg {
     position: absolute;
     margin: auto;
     left: 0;
