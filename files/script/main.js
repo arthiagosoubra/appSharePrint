@@ -32,6 +32,8 @@ $(document).ready(function () {
                             '<meta name="theme-color" content="' + titleColorLight + '">');
                             $('header #logo').css('background-image', 'url('+iconLight+')');
         }
+        var bgSize = '46';
+        $('header #logo').css('background-size', bgSize + 'px');
     }
     $(metas).appendTo('head');
     $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
