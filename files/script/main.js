@@ -32,10 +32,11 @@ $(document).ready(function () {
                             '<meta name="theme-color" content="' + titleColorLight + '">');
                             $('header #logo').css('background-image', 'url('+iconLight+')');
         }
-        var bgSize = '46';
         $('header #logo').css('background-size', bgSize + 'px');
     }
     $(metas).appendTo('head');
+    $('.header .data').html(data);
+    $('.header .logo').html(logo);
     $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
     $('.popup .foot button').css('background-color',color);
     $('input[type="text"]').css('caret-color',color);
