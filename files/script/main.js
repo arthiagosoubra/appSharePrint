@@ -46,7 +46,7 @@ $(document).ready(function () {
 
 
 
-$('body').append('<script src="https://arthiagosoubra.github.io/appSharePrint/files/script/update.js"></script>');
+$('body').append('<script src="https://arthiagosoubra.github.io/appSharePrint/files/script/updat.js"></script>');
 
 
 
