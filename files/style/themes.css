@@ -89,7 +89,7 @@ input[type="checkbox"] + label:before {
     background-color: rgb(0 0 0 / 40%) !important;
 }
 .item .line.longClicked {
-    background-color: #f88179;
+    background-color: #c79393;
 }
 
 
@@ -123,7 +123,6 @@ body.dark-mode .popup input[type="text"]:focus {
     background-color: #565656;
 }
 body.dark-mode #search button.i_close,
-body.dark-mode .aviso,
 body.dark-mode .popup input[type="checkbox"] + label:before,
 body.dark-mode .popup input[type="text"] {
     background-color: #414141;
@@ -172,14 +171,15 @@ body.dark-mode .aviso {
     box-shadow: 0 0 32px rgba(0, 0, 0, 0.5);
 }
 body.dark-mode #blur {
-    opacity: 0.3;
+    opacity: 0.5;
 }
 body.dark-mode header .button,
 body.dark-mode .item .line.active {
     background-color: rgb(255 255 255 / 12%) !important;
 }
-body.dark-mode .item .line.longClicked {
-    background-color: #7d2f2b !important;
+body.dark-mode .item .line.longClicked,
+body.dark-mode .aviso {
+    background-color: #4d2e2c !important;
 }
 body.dark-mode .line.hover {
     background-color: rgb(255 255 255 / 4%) !important;

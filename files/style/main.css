@@ -154,12 +154,17 @@ section .list {
 }
 section .head.list {
     top: 60px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 section .foot.list {
     bottom: 0;
     height: 48px;
     line-height: 48px;
     font-size: 14px;
+    border-top-left-radius: 15px;
+    overflow: hidden;
+    border-top-right-radius: 15px;
 }
 .foot.list .info {
     width: calc(50% - 48px);
@@ -229,6 +234,9 @@ section .shadow.foot {
 .item .line div, .head.list div div {
     height: 100%;
     float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .discr {
     width: 34%;
@@ -282,11 +290,10 @@ footer div {
 /* popups */
 .popup {
     position: fixed;
-    width: calc(100);
     top: 0;
     height: fit-content;
     padding-top: 48px;
-    z-index: 2;
+    z-index: 3;
     display: none;
 }
 .popup .head {
@@ -495,7 +502,7 @@ button.addItem.off, button.concluir.off {
     text-align: center;
     width: 100%;
     font-size: 14px;
-    z-index: 2;
+    z-index: 3;
     transition: 0.1s;
     top: -100px;
 }
@@ -514,7 +521,7 @@ button.addItem.off, button.concluir.off {
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     background-color: #000000;
 }
 #unitType {
