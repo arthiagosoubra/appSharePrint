@@ -35,6 +35,7 @@ $(document).ready(function () {
         }
     }
     $(metas).appendTo('head');
+    $('.picIt .logo').html(logo);
 
     toggleDarkMode();
     darkModeMediaQuery.addListener(toggleDarkMode);
