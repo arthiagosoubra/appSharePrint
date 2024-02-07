@@ -8,8 +8,8 @@ $(document).ready(function () {
 
     var metas = '<meta name="description" content="' + description + '">'+
                 '<title>' + title + '</title>';
+
     $(metas).appendTo('head');
-    $('.picIt .header .data').html(data);
 
     var iconLink = 'https://'+ website +'.github.io/adm/';
     var iconLight = iconLink +'icon.svg';
@@ -34,7 +34,6 @@ $(document).ready(function () {
         }
     }
     $(metas).appendTo('head');
-    $('.picIt .logo').html(logo);
     $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
     $('.popup .foot button').css('background-color',color);
     $('input[type="text"]').css('caret-color',color);
@@ -43,11 +42,6 @@ $(document).ready(function () {
     darkModeMediaQuery.addListener(toggleDarkMode);
 
     ///
-
-
-
-$('body').append('<script src="https://arthiagosoubra.github.io/appSharePrint/files/script/updat.js"></script>');
-
 
 
 
@@ -131,8 +125,8 @@ $('body').append('<script src="https://arthiagosoubra.github.io/appSharePrint/fi
                   }
                 });
               }
-            navigator.vibrate(150);
-        }, 2000);
+            navigator.vibrate(50);
+        }, 800);
     });
     
     $('section #list, .button.refresh').on("mouseup touchend", '.item .line', function() {
@@ -191,10 +185,33 @@ function calcularResultado() {
         } else {
             theItem.removeClass('active');
         }
+
     };
     atualizarTotal();
     atualizarContagemItens();
+    updateCheckbox();
 }
+
+
+
+
+    function updateCheckbox() {
+        var rawPixValue = $('.total').text();
+        var total = parseFloat(rawPixValue.replace('R$', '').trim().replace(',', '.')) || 0;
+        var pixCheckbox = $('#pixCheckbox');
+        if (total < 1) {
+            pixCheckbox.prop('disabled', true);
+            $(".popup.concluir label").click(function() {
+                exibirAviso('Nenhum valor na nota!');
+            });
+        } else {
+            pixCheckbox.prop('disabled', false);
+        }
+    }
+    $('.total').on('change', updateCheckbox);
+
+
+            
 
 $('.popup.share .block div, header .button, button.concluir, .popup .foot button').addClass('click');
 
@@ -247,12 +264,12 @@ function atualizarContagemItens() {
     $('.itens').text(count);
     totalItens = count;
 
-    var concluirElement = $('button.concluir');
+    var concluirButton = $('button.concluir');
 
     if (count >= 1 || $('.item .line').hasClass('longClicked')) {
-        concluirElement.removeClass('off');
+        concluirButton.removeClass('off');
     } else {
-        concluirElement.addClass('off');
+        concluirButton.addClass('off');
     }
 }
 atualizarContagemItens();
@@ -445,6 +462,18 @@ $('.popup.share input').on('input', function(){
                     newRow.append('<td class="left">' + inputValue1 + " " + value1type + '</td>');
                 }
     
+
+
+
+                if (discr.length > 12) {
+                    if (discr.charAt(11) !== ' ') {
+                        var newText = discr.substring(0, 11) + '.'; // Substitua o último caractere por um ponto
+                        discr = newText; // Atribua a nova string de texto à variável discr
+                    }
+                }
+
+
+
                 newRow.append('<td class="left">' + discr + '</td>');
                 
                 if (inputValue2 == valor || $item.hasClass('longClicked')) {
@@ -458,6 +487,7 @@ $('.popup.share input').on('input', function(){
                 $('#tabela').append(newRow);
             }
         });
+        generateQRCode();
     } //end
 
     $('section #list').on('click', '.item .line', function(event) {
@@ -627,6 +657,11 @@ $(".copyCode").click(function() {
     });
 
 }); // end
+
+
+
+
+
 
 
 });
