@@ -89,7 +89,7 @@ input[type="checkbox"] + label:before {
     background-color: rgb(0 0 0 / 40%) !important;
 }
 .item .line.longClicked {
-    background-color: #c79393;
+    background-color: #c79393 !important;
 }
 
 
