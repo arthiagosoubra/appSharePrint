@@ -9,6 +9,7 @@ $(document).ready(function () {
     var metas = '<meta name="description" content="' + description + '">'+
                 '<title>' + title + '</title>';
     $(metas).appendTo('head');
+    $('.picIt .header .data).html(data);
 
     var iconLink = 'https://'+ website +'.github.io/adm/';
     var iconLight = iconLink +'icon.svg';
@@ -48,25 +49,7 @@ $(document).ready(function () {
 
 
 
-$('<div class="header">'+
-            '<div class="logo"></div>'+
-            '<div class="data">'+data+'</div>'+
-        '</div>'+
-        '<table id="tabela">'+
-            '<tr class="head">'+
-                '<td class="left">QUANT.</td>'+
-                '<td class="left">DISCRIMINAÇÃO</td>'+
-                '<td class="right">P.UNIT.</td>'+
-                '<td class="right">VALOR</td>'+
-            '</tr>'+
-        '</table>'+
-        '<div class="footer">'+
-            '<div>TOTAL › <span class="total"></span></div>'+
-            '<div class="pixPay"><span></span><div id="qr-code-container"></div></div>'+
-            '<button class="cliente icon i_user"></button>CLIENTE › <span id="cliente"></span><br>'+
-            '<button class="emissao icon i_clock"></button>EMISSÃO › <span id="data_atual"></span>, <span id="hora_atual"></span>'+
-            '<p><br>Obrigado pela preferência <span class="icon i_heart"></span><br></p>'+
-        '</div>').append('.picIt');
+
 
 
     
