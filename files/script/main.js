@@ -84,20 +84,11 @@ $(document).ready(function () {
         gerarDiv(item);
     });
     
-    
-
-
-
-
-
 
     var pressTimer;
-
     $('section #list').on("mousedown touchstart", '.item .line', function(event) {
         var $item = $(this);
-    
         clearTimeout(pressTimer);
-    
         pressTimer = window.setTimeout(function() {
             if ($item.hasClass('longClicked')) {
                     $item.removeClass('longClicked');
@@ -116,8 +107,30 @@ $(document).ready(function () {
                     calcularResultado.call($item);
         }, 800);
     });
+
+    $('.button.refresh').on("mousedown touchstart", function(event) {
+        clearTimeout(pressTimer);
+        pressTimer = window.setTimeout(function() {
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.getRegistration().then(function(registration) {
+                  if (registration) {
+                    registration.unregister().then(function() {
+                      caches.keys().then(function(cacheNames) {
+                        return $.when.apply($, $.map(cacheNames, function(cacheName) {
+                          return caches.delete(cacheName);
+                        }));
+                      }).then(function() {
+                        location.reload(true);
+                      });
+                    });
+                  }
+                });
+              }
+            navigator.vibrate(50);
+        }, 800);
+    });
     
-    $('section #list').on("mouseup touchend", '.item .line', function() {
+    $('section #list, .button.refresh').on("mouseup touchend", '.item .line', function() {
         clearTimeout(pressTimer);
     });
     
