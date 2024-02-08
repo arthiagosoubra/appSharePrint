@@ -660,12 +660,12 @@ input[type="text"]::placeholder,
 #search button.i_close {
     border-color: #e0e0e0 !important;
 }
-header,
 #search button.i_close,
 .aviso,
 .popup,
 input[type="text"]:focus,
 .item .line,
+header .button,
 .foot.list .info {
     background-color: #ffffff;
 }
@@ -676,19 +676,21 @@ section .head.list::after,
 #search button.i_close,
 .popup input[type="text"]:focus,
 .quant input:focus, .punit input:focus {
-    background-color: #f6f6f6;
+    background-color: #f4f4f4;
 }
 .foot .button {
     fill: #ffffff;
 }
+section .head.list {
+    background-color: #efefef;
+}
 body,
 section,
-header .button,
 div#search {
-    background-color: #f1f1f1;
+    background-color: #e9e9e9;
 }
-section .head.list {
-    background-color: #f9f9f9;
+header {
+    background-color: #f6f6f6;
 }
 header .button,
 #search,
