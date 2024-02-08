@@ -11,8 +11,8 @@ $(document).ready(function () {
 
     var link = 'https://arthiagosoubra.github.io/appSharePrint/clients/';
     var iconLink = link + website + '/';
-    var iconLight = iconLink +'icon.svg';
-    var iconDark = iconLink +'icon_dark.svg';
+    var iconLight = link + iconLink +'icon.svg';
+    var iconDark = link + iconLink +'icon_dark.svg';
 
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     function toggleDarkMode() {
