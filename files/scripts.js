@@ -2,49 +2,49 @@
 
 $(document).ready(function () {
 
-    // VARIÁVEIS DE CLIENTES
-    var titleColorLight = '#ffffff';
-    var titleColorDark = '#313131';
-
-    var metas = '<meta name="description" content="' + description + '">'+
-                '<title>' + title + '</title>';
-
-    var link = 'https://arthiagosoubra.github.io/appSharePrint/clients/';
-    var iconLink = link + website + '/';
-    var iconLight = iconLink+'icon.svg';
-    var iconDark = iconLink+'icon_dark.svg';
-
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    function toggleDarkMode() {
-        const darkMode = darkModeMediaQuery.matches;
-        $('body').toggleClass('dark-mode', darkMode);
-
-        $('meta[name="msapplication-TileColor"]').remove();
-        $('meta[name="theme-color"]').remove();
-
-        if (darkMode) {
-            $('head').append('<meta name="msapplication-TileColor" content="' + titleColorDark + '">' +
-                            '<meta name="theme-color" content="' + titleColorDark + '">');
-                            $('body.dark-mode header #logo').css('background-image', 'url('+iconDark+')');
-        } else {
-            $('head').append('<meta name="msapplication-TileColor" content="' + titleColorLight + '">' +
-                            '<meta name="theme-color" content="' + titleColorLight + '">');
-                            $('header #logo').css('background-image', 'url('+iconLight+')');
+        // VARIÁVEIS DE CLIENTES
+        var titleColorLight = '#ffffff';
+        var titleColorDark = '#313131';
+    
+        var metas = '<meta name="description" content="' + description + '">'+
+                    '<title>' + title + '</title>';
+    
+        var link = 'https://arthiagosoubra.github.io/appSharePrint/clients/';
+        var iconLink = link + website + '/';
+        var iconLight = iconLink+'icon.svg';
+        var iconDark = iconLink+'icon_dark.svg';
+    
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        function toggleDarkMode() {
+            const darkMode = darkModeMediaQuery.matches;
+            $('body').toggleClass('dark-mode', darkMode);
+    
+            $('meta[name="msapplication-TileColor"]').remove();
+            $('meta[name="theme-color"]').remove();
+    
+            if (darkMode) {
+                $('head').append('<meta name="msapplication-TileColor" content="' + titleColorDark + '">' +
+                                '<meta name="theme-color" content="' + titleColorDark + '">');
+                                $('body.dark-mode header #logo').css('background-image', 'url('+iconDark+')');
+            } else {
+                $('head').append('<meta name="msapplication-TileColor" content="' + titleColorLight + '">' +
+                                '<meta name="theme-color" content="' + titleColorLight + '">');
+                                $('header #logo').css('background-image', 'url('+iconLight+')');
+            }
+            $('header #logo').css('background-size', bgSize + 'px');
         }
-        $('header #logo').css('background-size', bgSize + 'px');
-    }
-    $(metas).appendTo('head');
-    $('head').append('<link rel="icon" href="' + link + website + '/favicon.ico" type="image/x-icon">');
-    $('.header .data').html(data);
-    $('.header .logo').html(logo);
-    $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
-    $('.popup .foot button').css('background-color',color);
-    $('input[type="text"]').css('caret-color',color);
+        $(metas).appendTo('head');
+        $('head').append('<link rel="icon" href="' + link + website + '/favicon.ico" type="image/x-icon">');
+        $('.header .data').html(data);
+        $('.header .logo').html(logo);
+        $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
+        $('.popup .foot button').css('background-color',color);
+        $('input[type="text"]').css('caret-color',color);
+    
+        toggleDarkMode();
+        darkModeMediaQuery.addListener(toggleDarkMode);
 
-    toggleDarkMode();
-    darkModeMediaQuery.addListener(toggleDarkMode);
-
-    ///
+        ////
 
     function gerarDiv(item) {
         var newItem = $('<div class="item"><div class="line"></div></div>'); // Criar div interna
@@ -131,6 +131,16 @@ $(document).ready(function () {
 
 
 
+        function isIOS() {
+          return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+  
+        // Verifica se é iOS e remove inputmode="numeric"
+        if (isIOS()) {
+          $('.item .list input').removeAttr('inputmode');
+          $('.quant input').removeAttr('inputmode');
+          $('.punit input').removeAttr('inputmode');
+        }
 
 
 
@@ -456,13 +466,19 @@ $('.popup.share input').on('input', function(){
                     newRow.append('<td class="left">' + inputValue1 + " " + value1type + '</td>');
                 }
     
-
-
-
-                if (discr.length > 12) {
-                    if (discr.charAt(11) !== ' ') {
-                        var newText = discr.substring(0, 11) + '.'; // Substitua o último caractere por um ponto
-                        discr = newText; // Atribua a nova string de texto à variável discr
+                if ($('.picIt').hasClass('share')) {
+                    if (discr.length > 15) {
+                        if (discr.charAt(14) !== ' ') {
+                            var newText = discr.substring(0, 14) + '.'; // Substitua o último caractere por um ponto
+                            discr = newText; // Atribua a nova string de texto à variável discr
+                        }
+                    }
+                } else {
+                    if (discr.length > 12) {
+                        if (discr.charAt(11) !== ' ') {
+                            var newText = discr.substring(0, 11) + '.'; // Substitua o último caractere por um ponto
+                            discr = newText; // Atribua a nova string de texto à variável discr
+                        }
                     }
                 }
 
@@ -520,9 +536,9 @@ $('.popup.share input').on('input', function(){
                     $('.popup.share .block, .none').hide();
                     $('.popup.share input').focus();
                 } else {
+                    $('.picIt').addClass('share');
                     pegarNome();
                     gerarTabela();
-                    $('.picIt').addClass('share');
                     $('#qr-code-container').empty();
                     $('.pixPay span').html('');
                     sharePrint();
@@ -535,9 +551,9 @@ $('.popup.share input').on('input', function(){
     $(".finish_share, .popup.share input").on("click keypress", function (event) {
         if ((event.type === "click" && event.target.tagName !== "INPUT") ||
             (event.type === "keypress" && event.which === 13)) {
+                $('.picIt').addClass('share');
                 pegarNome();
                 gerarTabela();
-                $('.picIt').addClass('share');
                 $('#qr-code-container').empty();
                 $('.pixPay span').html('');
                 sharePrint();
