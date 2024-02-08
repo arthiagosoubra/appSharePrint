@@ -47,11 +47,7 @@ $(document).ready(function () {
     ///
 
 
-    if (isIOS()) {
-        var $input = $('.item .line input');
-        $input.attr('type', 'number');
-        $input.attr('step', 'any');
-    }
+    if (isIOS()) { $('.item .line input').removeAttr('inputmode'); }
 
 
     
@@ -771,5 +767,6 @@ function href(web) {
 }
 
 function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    return /iPhone|iPad|iPod/
+        i.test(navigator.userAgent);
   }
