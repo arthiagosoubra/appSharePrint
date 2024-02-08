@@ -47,7 +47,6 @@ $(document).ready(function () {
     ///
 
 
-    if (isIOS()) { $('.item .line input').removeAttr('inputmode'); }
 
 
     
@@ -675,54 +674,22 @@ async function sharePrint() {
     try {
         const canvas = await html2canvas(picIt[0]);
         const dataUrl = canvas.toDataURL();
+        const blob = await fetch(dataUrl).then(res => res.blob());
 
-        const file = dataURLtoFile(dataUrl, 'cupomfiscal.png');
-        
-        if (navigator.share) {
-            const shareData = {
-                title: 'Imprimir',
-                text: 'Confira este cupom fiscal',
-                files: [file]
-            };
-            await navigator.share(shareData);
-        } else if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-                files: [file],
-                title: 'Imprimir',
-                text: 'Confira este cupom fiscal'
-            });
-        } else {
-            const blob = await fetch(dataUrl).then(res => res.blob());
-            const filesArray = [new File([blob], 'cupomfiscal.png', { type: blob.type })];
-            const dataTransfer = new DataTransfer();
-            filesArray.forEach(file => {
-                dataTransfer.items.add(file);
-            });
-            const input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.files = dataTransfer.files;
+        const file = new File([blob], 'cupomfiscal.png', {
+            type: blob.type
+        });
 
-            input.click();
-        }
+        let shareData = {
+            title: 'Imprimir',
+            files: [file]
+        };
+
+        await navigator.share(shareData);
     } catch (e) {
         exibirAviso('Erro:' + e);
     }
 }
-
-function dataURLtoFile(dataUrl, filename) {
-    var arr = dataUrl.split(','), 
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), 
-        n = bstr.length, 
-        u8arr = new Uint8Array(n);
-
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
-}
-
 
 
 
@@ -766,7 +733,3 @@ function href(web) {
     window.location.href = web;
 }
 
-function isIOS() {
-    return /iPhone|iPad|iPod/
-        i.test(navigator.userAgent);
-  }
