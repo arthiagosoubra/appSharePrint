@@ -46,7 +46,7 @@ var content = `
     <input type="text" id="discr" placeholder="Nome do produto" maxlength="22" />
     <label class="left">Medida</label><label class="right">Valor unitário</label>
     <input type="text" id="unitType" placeholder="kg, unid, etc" maxlength="4" />
-    <input type="text" placeholder="0,00" inputmode="numeric" id="punit" />
+    <input type="text" placeholder="0,00" inputmode="decimal" id="punit" />
 </div>
 <div class="foot">
     <button class="addItem off icon i_check"></button>

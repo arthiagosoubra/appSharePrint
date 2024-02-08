@@ -46,19 +46,11 @@ $(document).ready(function () {
 
     ///
 
-
-
-
-    
-
-
-
-
     function gerarDiv(item) {
         var newItem = $('<div class="item"><div class="line"></div></div>'); // Criar div interna
         newItem.find('.line').append('<div class="discr">' + item.discr + '</div>');
-        newItem.find('.line').append('<div class="quant"><input type="text" inputmode="numeric" maxlength="6" placeholder="' + item.medida + '" /></div>');
-        newItem.find('.line').append('<div class="punit"><input type="text" inputmode="numeric" maxlength="6" value="' + item.pUnit + '" /></div>');
+        newItem.find('.line').append('<div class="quant"><input type="text" inputmode="decimal" maxlength="6" placeholder="' + item.medida + '" /></div>');
+        newItem.find('.line').append('<div class="punit"><input type="text" inputmode="decimal" maxlength="6" value="' + item.pUnit + '" /></div>');
         newItem.find('.line').append('<div class="valor">-</div>');
     
         var divs = $('section #list .item');
@@ -674,22 +666,55 @@ async function sharePrint() {
     try {
         const canvas = await html2canvas(picIt[0]);
         const dataUrl = canvas.toDataURL();
-        const blob = await fetch(dataUrl).then(res => res.blob());
 
-        const file = new File([blob], 'cupomfiscal.png', {
-            type: blob.type
-        });
+        const file = dataURLtoFile(dataUrl, 'cupomfiscal.png');
+        
+        if (navigator.share) {
+            const shareData = {
+                title: 'Imprimir',
+                text: 'Confira este cupom fiscal',
+                files: [file]
+            };
+            await navigator.share(shareData);
+        } else if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: 'Imprimir',
+                text: 'Confira este cupom fiscal'
+            });
+        } else {
+            const blob = await fetch(dataUrl).then(res => res.blob());
+            const filesArray = [new File([blob], 'cupomfiscal.png', { type: blob.type })];
+            const dataTransfer = new DataTransfer();
+            filesArray.forEach(file => {
+                dataTransfer.items.add(file);
+            });
+            const input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.files = dataTransfer.files;
 
-        let shareData = {
-            title: 'Imprimir',
-            files: [file]
-        };
-
-        await navigator.share(shareData);
+            input.click();
+        }
     } catch (e) {
         exibirAviso('Erro:' + e);
     }
 }
+
+function dataURLtoFile(dataUrl, filename) {
+    var arr = dataUrl.split(','), 
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), 
+        n = bstr.length, 
+        u8arr = new Uint8Array(n);
+
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+}
+
+
 
 
 
