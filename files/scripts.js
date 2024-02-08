@@ -9,7 +9,8 @@ $(document).ready(function () {
     var metas = '<meta name="description" content="' + description + '">'+
                 '<title>' + title + '</title>';
 
-    var iconLink = 'https://'+ website +'.github.io/adm/';
+    var link = 'https://arthiagosoubra.github.io/appSharePrint/clients/';
+    var iconLink = link + website + '/';
     var iconLight = iconLink +'icon.svg';
     var iconDark = iconLink +'icon_dark.svg';
 
@@ -33,7 +34,7 @@ $(document).ready(function () {
         $('header #logo').css('background-size', bgSize + 'px');
     }
     $(metas).appendTo('head');
-    $('head').append('<link rel="icon" href="https://arthiagosoubra.github.io/appSharePrint/clients/'+ website +'/favicon.ico" type="image/x-icon">');
+    $('head').append('<link rel="icon" href="' + link + website + '/favicon.ico" type="image/x-icon">');
     $('.header .data').html(data);
     $('.header .logo').html(logo);
     $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
