@@ -366,6 +366,20 @@ footer div {
 .popup.concluir input[type="text"], .popup.share .hidden input {
     text-transform: capitalize;
 }
+.popup.update .attention {
+    display: block;
+    background: #FF5722;
+    border-radius: 15px;
+    padding: 12px;
+    text-align: center;
+}
+.popup.update .updateLater {
+    background: transparent !important;
+    left: 16px;
+    border: 2px solid;
+    width: fit-content;
+    padding: 0 16px;
+}
 .popup .foot {
     width: 100%;
     height: 73px;
@@ -499,6 +513,7 @@ button.concluir {
     box-shadow: 2px -3px 9px 0px rgb(255 255 255 / 18%);
     color: #ffffff;
     transition: 0.2s;
+    border: 6px solid;
 }
 button.addItem.off, button.concluir.off {
     box-shadow: none;
@@ -509,11 +524,25 @@ button.addItem.off, button.concluir.off {
     height: 48px;
     line-height: 48px;
     text-align: center;
-    width: 100%;
+    width: calc(100% - 32px);
     font-size: 14px;
     z-index: 3;
     transition: 0.1s;
-    top: -100px;
+    top: -112px;
+    border-radius: 16px;
+    padding-left: 34px;
+    box-sizing: border-box;
+}
+.aviso button {
+    background: #ffffff;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    position: absolute;
+    left: 8px;
+    margin: auto;
+    bottom: 0;
+    top: 0;
 }
 #noItens {
     text-align: center;
@@ -618,26 +647,24 @@ input[type="checkbox"] {
   transition-delay: 0s;
   opacity: 0.1;
 }
-.warningPay {
-    margin: 16px;
-    text-align: center;
+.warning {
     border-radius: 12px;
-    background: #ffd08b;
+    background: #ffffff;
     position: relative;
-    height: 72px;
+    height: fit-content;
+    /* overflow: hidden; */
+    margin: 16px;
+    padding: 8px;
 }
-.warningPay > button {
-    position: absolute;
-    left: 0;
-    width: 50px;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    border-right: 1px solid #0000001a;
-    color: #ee1212 !important;
-    font-size: 18px;
+.warning > button {
+    width: 38px;
+    height: 38px;
+    color: #ffffff !important;
+    font-size: 16px;
+    background: #FF9800;
+    border-radius: 12px;
 }
-.warningPay .content {
+.warning .content {
     width: calc(100% - 107px);
     font-size: 14px;
     margin: auto;
@@ -645,29 +672,43 @@ input[type="checkbox"] {
     bottom: 0;
     top: 0;
     position: absolute;
-    left: 48px;
+    left: 54px;
     color: #000000;
 }
-.warningPay .content span {
+.warning .content span {
     color: #000;
 }
-.warningPay #copypix {
-    background: #ffffff;
+.warning .button {
+    background: #8BC34A;
     border-radius: 12px;
-    width: 52px;
-    text-align: center;
+    width: fit-content;
     font-size: 12px;
     position: absolute;
     right: 7px;
-    padding: 9px 0;
     margin: auto;
     bottom: 0;
     top: 0;
     height: fit-content;
-    color: #000000;
+    border: 3px solid #212121;
 }
-.warningPay #copypix button {
+.warning .button div {
+    float: left;
+    color: #000;
+    text-align: center;
+    width: 50%;
+    height: fit-content;
+}
+.warning .button button {
     color: #000000;
+    font-size: 18px;
+}
+#copypix {
+    padding: 6px 9px;
+}
+#update {
+    padding: 12px 6px;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
 /* THEMES */ 
@@ -683,7 +724,9 @@ input[type="checkbox"] {
 .item .line.active div,
 .item .line.active div input,
 .icon.i_whatsapp,
-.none {
+.none,
+.attention .title,
+.attention .content {
     color: #ffffff;
 }
 .click:after {
@@ -712,7 +755,7 @@ input[type="text"]::placeholder,
     border-color: #e0e0e0 !important;
 }
 #search button.i_close,
-.aviso,
+.popup,
 input[type="text"]:focus,
 .item .line,
 header .button,
@@ -750,7 +793,7 @@ input[type="text"]:focus,
 input[type="checkbox"] + label:before {
     border: none !important;
 }
-.picIt * {
+.picIt *, .popup.update .updateLater {
     color: #000000 !important;
 }
 .popup,
@@ -774,6 +817,9 @@ body.dark-mode .punit input:focus,
 body.dark-mode .block div,
 body.dark-mode .block div button {
     color: #ffffff;
+}
+body.dark-mode .popup.update .updateLater {
+    color: #ffffff !important;
 }
 body.dark-mode .click:after {
     background-color: #ffffff !important;

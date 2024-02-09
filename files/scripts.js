@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
         // VARIÁVEIS DE CLIENTES
-        var titleColorLight = '#ffffff';
+        var titleColorLight = '#f6f6f6';
         var titleColorDark = '#313131';
     
         var metas = '<meta name="description" content="' + description + '">'+
@@ -36,13 +36,15 @@ $(document).ready(function () {
         $(metas).appendTo('head');
         $('head').append('<link rel="icon" href="' + link + website + '/favicon.ico" type="image/x-icon">');
         $('.header .data').html(data);
-        $('.picIt .header .logo').html(logo);
+        $('.header .logo').html(logo);
         $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
         $('.popup .foot button').css('background-color',color);
         $('input[type="text"]').css('caret-color',color);
     
         toggleDarkMode();
         darkModeMediaQuery.addListener(toggleDarkMode);
+
+        //$('.warning.update.um').hide();
 
         ////
 
@@ -105,21 +107,7 @@ $(document).ready(function () {
     $('.button.refresh').on("mousedown touchstart", function(event) {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
-            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-                navigator.serviceWorker.getRegistration().then(function(registration) {
-                  if (registration) {
-                    registration.unregister().then(function() {
-                      caches.keys().then(function(cacheNames) {
-                        return $.when.apply($, $.map(cacheNames, function(cacheName) {
-                          return caches.delete(cacheName);
-                        }));
-                      }).then(function() {
-                        location.reload(true);
-                      });
-                    });
-                  }
-                });
-              }
+            clearServiceWorker();
             navigator.vibrate(50);
         }, 800);
     });
@@ -127,20 +115,39 @@ $(document).ready(function () {
     $('section #list, .button.refresh').on("mouseup touchend", '.item .line', function() {
         clearTimeout(pressTimer);
     });
+
+    function clearServiceWorker() {
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.getRegistration().then(function(registration) {
+              if (registration) {
+                registration.unregister().then(function() {
+                  caches.keys().then(function(cacheNames) {
+                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
+                      return caches.delete(cacheName);
+                    }));
+                  }).then(function() {
+                    location.reload(true);
+                  });
+                });
+              }
+            });
+          }
+    }
+
+    if (isIOS()) {
+        $('.item .list input').removeAttr('inputmode');
+        $('.quant input').removeAttr('inputmode');
+        $('.punit input').removeAttr('inputmode');
+    }
     
-
-
-
-        function isIOS() {
-          return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-  
-        // Verifica se é iOS e remove inputmode="numeric"
-        if (isIOS()) {
-          $('.item .list input').removeAttr('inputmode');
-          $('.quant input').removeAttr('inputmode');
-          $('.punit input').removeAttr('inputmode');
-        }
+    function isIOS() {
+        return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+    if (isIOS()) {
+        $('.item .list input').removeAttr('inputmode');
+        $('.quant input').removeAttr('inputmode');
+        $('.punit input').removeAttr('inputmode');
+    }
 
 
 
@@ -220,25 +227,6 @@ function calcularResultado() {
 $('.popup.share .block div, header .button, button.concluir, .popup .foot button').addClass('click');
 
 
-function exibirAviso(mensagem) {
-    var avisoDiv = $('.aviso');
-
-    avisoDiv.find('span').text(mensagem);
-
-    avisoDiv.css({
-        top: '-100px'
-    }).animate({
-        top: 0
-    }, 200, function () {
-        setTimeout(function () {
-            avisoDiv.animate({
-                top: '-100px'
-            }, 200);
-        }, 3000);
-    });
-}
-
-
 $(document).on("click", "button.concluir:not(.off)", function() {
     abrirPopup(".popup.concluir", '.popup.concluir input');
 });
@@ -272,8 +260,10 @@ function atualizarContagemItens() {
 
     if (count >= 1 || $('.item .line').hasClass('longClicked')) {
         concluirButton.removeClass('off');
+        $('.popup.update .attention').show();
     } else {
         concluirButton.addClass('off');
+        $('.popup.update .attention').hide();
     }
 }
 atualizarContagemItens();
@@ -427,6 +417,15 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
         abrirPopup(".popup.share");
     });
     
+    $(".warning.update #update").on("click", function () {
+        abrirPopup(".popup.update");
+        atualizarContagemItens();
+    });
+    $(".popup.update .updateNow").on("click", function () {
+        clearServiceWorker();
+        fecharPopup();
+    });
+    
 
 $('.popup.concluir input').on('input', function(){
         $('.popup.share input').val($(this).val());
@@ -467,7 +466,6 @@ $('.popup.share input').on('input', function(){
                 }
     
                 if ($('.picIt').hasClass('share')) {
-                    //$('.header .logo').html(logocolor);
                     if (discr.length > 15) {
                         if (discr.charAt(14) !== ' ') {
                             var newText = discr.substring(0, 14) + '.'; // Substitua o último caractere por um ponto
@@ -775,3 +773,21 @@ function href(web) {
     window.location.href = web;
 }
 
+
+function exibirAviso(mensagem) {
+    var avisoDiv = $('.aviso');
+
+    avisoDiv.find('span').text(mensagem);
+
+    avisoDiv.css({
+        top: '-100px'
+    }).animate({
+        top: 16
+    }, 200, function () {
+        setTimeout(function () {
+            avisoDiv.animate({
+                top: '-100px'
+            }, 200);
+        }, 3000);
+    });
+}
