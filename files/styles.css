@@ -713,7 +713,6 @@ input[type="text"]::placeholder,
 }
 #search button.i_close,
 .aviso,
-.popup,
 input[type="text"]:focus,
 .item .line,
 header .button,
@@ -764,7 +763,7 @@ input[type="checkbox"] + label:before {
 .item .line.active {
     background-color: rgb(0 0 0 / 40%) !important;
 }
-.item .line.longClicked {
+.item .line.longClicked, .aviso {
     background-color: #ff968e !important;
 }
 
