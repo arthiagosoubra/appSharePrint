@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('body.hortifrutibrasileiros .warning.pay').show();
+    $('body.hortifrutibrasileiros .warning.pay').hide();
     $('body.ifruts .warning.pay').hide();
     $('body.mesturafemenina .warning.pay').hide();
 
@@ -11,7 +11,7 @@ $(document).ready(function () {
         exibirAviso('Código do PIX foi copiado');
     });
 
-    $('.warning.update').hide();
+    $('.warning.update').show();
 
 });
 
