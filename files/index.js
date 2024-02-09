@@ -2,7 +2,7 @@ $(document).ready(function () {
     var content = `
     <header>
     <div>
-        <div id="logo">vai</div>
+        <div id="logo"></div>
         <div id="nav">
             <button class="button add icon i_plus" onclick="href('#popup');"></button>
             <div id="search">
