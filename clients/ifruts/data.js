@@ -26,7 +26,6 @@ d="M60.474,53.990 C58.479,52.991 56.889,53.365 56.827,53.771 C56.796,53.990 57.2
 var bgSize = '34';
 
 var logocolor = `
-
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 27.4.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
