@@ -1,3 +1,46 @@
+    function clearServiceWorker() {
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.getRegistration().then(function(registration) {
+              if (registration) {
+                registration.unregister().then(function() {
+                  caches.keys().then(function(cacheNames) {
+                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
+                      return caches.delete(cacheName);
+                    }));
+                  }).then(function() {
+                    location.reload(true);
+                  });
+                });
+              }
+            });
+          }
+    }
+
+function limparCacheERecarregar() {
+    // Limpar localStorage
+    localStorage.clear();
+
+    // Limpar cookies
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+
+    // Remover service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
+            }
+        });
+    }
+
+    // Forçar recarregamento da página
+    window.location.reload(true);
+}
+
+// Chamar a função para limpar cache e recarregar a página
+limparCacheERecarregar();
+
 
 
 $(document).ready(function () {
@@ -107,7 +150,7 @@ $(document).ready(function () {
     $('.button.refresh').on("mousedown touchstart", function(event) {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
-            clearServiceWorker();
+            // clearServiceWorker();
                 limparCacheERecarregar();
             navigator.vibrate(50);
         }, 800);
@@ -117,48 +160,7 @@ $(document).ready(function () {
         clearTimeout(pressTimer);
     });
 
-    function clearServiceWorker() {
-        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.getRegistration().then(function(registration) {
-              if (registration) {
-                registration.unregister().then(function() {
-                  caches.keys().then(function(cacheNames) {
-                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
-                      return caches.delete(cacheName);
-                    }));
-                  }).then(function() {
-                    location.reload(true);
-                  });
-                });
-              }
-            });
-          }
-    }
 
-function limparCacheERecarregar() {
-    // Limpar localStorage
-    localStorage.clear();
-
-    // Limpar cookies
-    document.cookie.split(";").forEach(function(c) {
-        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
-
-    // Remover service worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for (let registration of registrations) {
-                registration.unregister();
-            }
-        });
-    }
-
-    // Forçar recarregamento da página
-    window.location.reload(true);
-}
-
-// Chamar a função para limpar cache e recarregar a página
-limparCacheERecarregar();
 
 
     if (isIOS()) {
