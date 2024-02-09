@@ -9,7 +9,7 @@ var title = 'Brasileiros Hortifruti - ADM';
 var website = 'hortifrutibrasileiros';
 
 var pixKey = '+5583986612160';
-var destinatario = 'EDNA LUCIA SOUTO BRASILEIRO';
+var destinatario = 'THIAGO SOUTO BRASILEIRO';
 var cidade = 'SAO PAULO';
 
 var colorbutton = '#ffbf00, #51ac05, #628eff';
