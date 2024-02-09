@@ -1,21 +1,3 @@
-    function clearServiceWorker() {
-        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.getRegistration().then(function(registration) {
-              if (registration) {
-                registration.unregister().then(function() {
-                  caches.keys().then(function(cacheNames) {
-                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
-                      return caches.delete(cacheName);
-                    }));
-                  }).then(function() {
-                    location.reload(true);
-                  });
-                });
-              }
-            });
-          }
-    }
-
 function limparCacheERecarregar() {
     // Limpar localStorage
     localStorage.clear();
@@ -26,13 +8,19 @@ function limparCacheERecarregar() {
     });
 
     // Remover service worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for (let registration of registrations) {
-                registration.unregister();
-            }
-        });
-    }
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.getRegistration().then(function(registration) {
+              if (registration) {
+                registration.unregister().then(function() {
+                  caches.keys().then(function(cacheNames) {
+                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
+                      return caches.delete(cacheName);
+                    }));
+                  })
+                });
+              }
+            });
+          }
 
     // Forçar recarregamento da página
     window.location.reload(true);
