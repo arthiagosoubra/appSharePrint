@@ -1,31 +1,18 @@
-function limparCacheERecarregar() {
-    // Limpar localStorage
-    localStorage.clear();
-
-    // Limpar cookies
-    document.cookie.split(";").forEach(function(c) {
-        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
-
-    // Remover service worker
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.getRegistration().then(function(registration) {
-              if (registration) {
-                registration.unregister().then(function() {
-                  caches.keys().then(function(cacheNames) {
-                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
-                      return caches.delete(cacheName);
-                    }));
-                  })
-                });
-              }
-            });
-          }
-
-    // Forçar recarregamento da página
-    window.location.reload(true);
+function atualizarPWA() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
+            }
+        }).then(function() {
+            // Notificar o usuário sobre a nova versão
+            alert('Uma nova versão do aplicativo está disponível. Por favor, recarregue a página para atualizá-la.');
+        });
+    } else {
+        // Caso o service worker não seja suportado, apenas recarregar a página
+        window.location.reload(true);
+    }
 }
-
 
 
 $(document).ready(function () {
@@ -136,7 +123,7 @@ $(document).ready(function () {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
             // clearServiceWorker();
-                limparCacheERecarregar();
+                atualizarPWA();
             navigator.vibrate(50);
         }, 800);
     });
