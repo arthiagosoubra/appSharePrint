@@ -44,7 +44,7 @@ $(document).ready(function () {
         toggleDarkMode();
         darkModeMediaQuery.addListener(toggleDarkMode);
 
-        //$('.warning.update.um').hide();
+        $('.warning.update.um').hide();
 
         ////
 
