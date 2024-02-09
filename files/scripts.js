@@ -38,9 +38,6 @@ function limparCacheERecarregar() {
     window.location.reload(true);
 }
 
-// Chamar a função para limpar cache e recarregar a página
-limparCacheERecarregar();
-
 
 
 $(document).ready(function () {
