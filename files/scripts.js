@@ -37,7 +37,6 @@ $(document).ready(function () {
         $('head').append('<link rel="icon" href="' + link + website + '/favicon.ico" type="image/x-icon">');
         $('.header .data').html(data);
         $('.picIt .header .logo').html(logo);
-        $('.picIt.share .header .logo').html(logocolor);
         $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
         $('.popup .foot button').css('background-color',color);
         $('input[type="text"]').css('caret-color',color);
@@ -468,6 +467,7 @@ $('.popup.share input').on('input', function(){
                 }
     
                 if ($('.picIt').hasClass('share')) {
+                    $('.picIt.share .header .logo').html(logocolor);
                     if (discr.length > 15) {
                         if (discr.charAt(14) !== ' ') {
                             var newText = discr.substring(0, 14) + '.'; // Substitua o último caractere por um ponto
