@@ -467,7 +467,7 @@ $('.popup.share input').on('input', function(){
                 }
     
                 if ($('.picIt').hasClass('share')) {
-                    $('.picIt.share .header .logo').html(logocolor);
+                    $('.header .logo').html(logocolor);
                     if (discr.length > 15) {
                         if (discr.charAt(14) !== ' ') {
                             var newText = discr.substring(0, 14) + '.'; // Substitua o último caractere por um ponto
