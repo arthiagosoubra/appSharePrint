@@ -108,6 +108,7 @@ $(document).ready(function () {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
             clearServiceWorker();
+                limparCacheERecarregar();
             navigator.vibrate(50);
         }, 800);
     });
@@ -133,6 +134,32 @@ $(document).ready(function () {
             });
           }
     }
+
+function limparCacheERecarregar() {
+    // Limpar localStorage
+    localStorage.clear();
+
+    // Limpar cookies
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+
+    // Remover service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
+            }
+        });
+    }
+
+    // Forçar recarregamento da página
+    window.location.reload(true);
+}
+
+// Chamar a função para limpar cache e recarregar a página
+limparCacheERecarregar();
+
 
     if (isIOS()) {
         $('.item .list input').removeAttr('inputmode');
