@@ -1,3 +1,24 @@
+document.getElementById('logo').addEventListener('click', function() {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.getRegistration().then(function(registration) {
+            if (registration) {
+                registration.unregister().then(function() {
+                    caches.keys().then(function(cacheNames) {
+                        return Promise.all(
+                            cacheNames.map(function(cacheName) {
+                                return caches.delete(cacheName);
+                            })
+                        );
+                    }).then(function() {
+                        location.reload(true);
+                    });
+                });
+            }
+        });
+    }
+});
+
+
 $(document).ready(function () {
 
     $('body.hortifrutibrasileiros .warning.pay').hide(); //
@@ -52,27 +73,3 @@ function pegaCRC16(paypix) {
     }
     return resultado;
 }
-
-
-
-
-
-document.getElementById('limpaessamerda').addEventListener('click', function() {
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.getRegistration().then(function(registration) {
-            if (registration) {
-                registration.unregister().then(function() {
-                    caches.keys().then(function(cacheNames) {
-                        return Promise.all(
-                            cacheNames.map(function(cacheName) {
-                                return caches.delete(cacheName);
-                            })
-                        );
-                    }).then(function() {
-                        location.reload(true);
-                    });
-                });
-            }
-        });
-    }
-});
