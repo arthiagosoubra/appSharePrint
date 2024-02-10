@@ -1,6 +1,6 @@
 $(document).ready(function () {
     
-    $('body.hortifrutibrasileiros .warning.pay').hide(); //
+    $('body.hortifrutibrasileiros .warning.pay').show(); //
     $('body.ifruts .warning.pay').hide();
     $('body.mesturafemenina .warning.pay').hide();
 
