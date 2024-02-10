@@ -1,10 +1,3 @@
-document.getElementById('logo').addEventListener('click', function() {
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({command: 'limparCache'});
-        location.reload(); // Recarrega a página após limpar o cache
-    }
-});
-
 $(document).ready(function () {
 
         // VARIÁVEIS DE CLIENTES
@@ -113,7 +106,10 @@ $(document).ready(function () {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
             // clearServiceWorker();
-                atualizarPWA();
+                    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({command: 'limparCache'});
+        location.reload(); // Recarrega a página após limpar o cache
+    }
             navigator.vibrate(50);
         }, 800);
     });
@@ -124,12 +120,6 @@ $(document).ready(function () {
 
 
 
-
-    if (isIOS()) {
-        $('.item .list input').removeAttr('inputmode');
-        $('.quant input').removeAttr('inputmode');
-        $('.punit input').removeAttr('inputmode');
-    }
     
     function isIOS() {
         return /iPhone|iPad|iPod/i.test(navigator.userAgent);
