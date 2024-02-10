@@ -1,10 +1,9 @@
 $(document).ready(function () {
-
+    
     $('body.hortifrutibrasileiros .warning.pay').hide(); //
     $('body.ifruts .warning.pay').hide();
     $('body.mesturafemenina .warning.pay').hide();
 
-    
     $('#copypix').click(function() {
         generatePixCode();
         copypaypixToClipboard();
