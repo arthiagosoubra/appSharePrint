@@ -1,19 +1,9 @@
-function atualizarPWA() {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for (let registration of registrations) {
-                registration.unregister();
-            }
-        }).then(function() {
-            // Notificar o usuário sobre a nova versão
-            alert('Uma nova versão do aplicativo está disponível. Por favor, recarregue a página para atualizá-la.');
-        });
-    } else {
-        // Caso o service worker não seja suportado, apenas recarregar a página
-        window.location.reload(true);
+document.getElementById('logo').addEventListener('click', function() {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({command: 'limparCache'});
+        location.reload(); // Recarrega a página após limpar o cache
     }
-}
-
+});
 
 $(document).ready(function () {
 
