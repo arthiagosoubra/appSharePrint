@@ -107,7 +107,10 @@ $(document).ready(function () {
     $('.button.refresh').on("mousedown touchstart", function(event) {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
-            clearServiceWorker();
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({command: 'limparCache'});
+        location.reload(); // Recarrega a página após limpar o cache
+    }
             navigator.vibrate(50);
         }, 800);
     });
