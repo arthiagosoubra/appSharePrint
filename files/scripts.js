@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
         // VARIÁVEIS DE CLIENTES
@@ -42,7 +44,7 @@ $(document).ready(function () {
         toggleDarkMode();
         darkModeMediaQuery.addListener(toggleDarkMode);
 
-        $('.warning.update.um').hide();
+        //$('.warning.update.um').hide();
 
         ////
 
@@ -105,11 +107,7 @@ $(document).ready(function () {
     $('.button.refresh').on("mousedown touchstart", function(event) {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
-            // clearServiceWorker();
-                    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({command: 'limparCache'});
-        location.reload(); // Recarrega a página após limpar o cache
-    }
+            clearServiceWorker();
             navigator.vibrate(50);
         }, 800);
     });
@@ -118,8 +116,29 @@ $(document).ready(function () {
         clearTimeout(pressTimer);
     });
 
+    function clearServiceWorker() {
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.getRegistration().then(function(registration) {
+              if (registration) {
+                registration.unregister().then(function() {
+                  caches.keys().then(function(cacheNames) {
+                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
+                      return caches.delete(cacheName);
+                    }));
+                  }).then(function() {
+                    location.reload(true);
+                  });
+                });
+              }
+            });
+          }
+    }
 
-
+    if (isIOS()) {
+        $('.item .list input').removeAttr('inputmode');
+        $('.quant input').removeAttr('inputmode');
+        $('.punit input').removeAttr('inputmode');
+    }
     
     function isIOS() {
         return /iPhone|iPad|iPod/i.test(navigator.userAgent);
