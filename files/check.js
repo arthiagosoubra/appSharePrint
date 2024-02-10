@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('body.hortifrutibrasileiros .warning.pay').show();
+    $('body.hortifrutibrasileiros .warning.pay').show(); // BIG ALTERATION PELO AMOR DE DEUS ATUALOZA PORRA
     $('body.ifruts .warning.pay').hide();
     $('body.mesturafemenina .warning.pay').hide();
 
