@@ -198,9 +198,11 @@ function calcularResultado() {
         }
         
         if (parseFloat(inputValue1) > 0) {
-            theItem.addClass('active');
-        } else {
+            theItem.css('background-color',color);
             theItem.removeClass('active');
+        } else {
+            theItem.css('background-color','');
+            theItem.addClass('active');
         }
 
     };

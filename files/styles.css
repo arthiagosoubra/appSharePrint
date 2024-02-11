@@ -770,10 +770,6 @@ label {
     border-top: 2px solid;
     border-bottom: 2px solid;
 }
-#checklist, #checklist tr {
-    color: #fff;
-    border-color: #fff;
-}
 #checklist tr {
     border-bottom: 2px solid;
 }
@@ -785,13 +781,13 @@ table {
     border-collapse: collapse;
 }
 footer .info button {
-    color: #fff;
     font-size: 18px;
 }
 
 /* THEMES */
 header, section .line,
 .popup,
+.item .line.active,
 body.dark-mode .content .block div,
 body.dark-mode .click:after {
     background-color: #ffffff;
@@ -818,7 +814,10 @@ body.dark-mode .popup .head button,
 body.dark-mode .popup input,
 body.dark-mode .popup .foot button,
 body.dark-mode #category,
-body.dark-mode label  {
+body.dark-mode label,
+body.dark-mode footer .info button,
+body.dark-mode #checklist,
+body.dark-mode #checklist tr  {
     color: #ffffff;
 }
 body,
@@ -840,7 +839,6 @@ footer svg {
     fill: #cbcbcb;
 }
 #categories .category,
-.item .line.active,
 #search button.icon.i_close,
 .content .block div {
     background-color: #999999;
@@ -864,12 +862,17 @@ footer .info span,
 .popup .head,
 .popup .head button,
 body.dark-mode .content .block div,
-#category {
+#category,
+footer .info button,
+#checklist,
+#checklist tr {
     color: #212121;
 }
 #categories .category.active,
 .line.active,
-header #search input:focus  {
+header #search input:focus,
+#checklist,
+#checklist tr {
     border-color: #212121;
 }
 #blur {
@@ -897,6 +900,7 @@ body.dark-mode header,
 body.dark-mode #categories .category,
 body.dark-mode #search button.icon.i_close,
 body.dark-mode .popup .head,
+body.dark-mode .line.active,
 body.dark-mode section .line {
     background-color: #313131;
 }
@@ -914,7 +918,8 @@ body.dark-mode .popup input::placeholder {
     color: #999999;
 }
 body.dark-mode #categories .category.active,
-body.dark-mode .line.active,
+body.dark-mode #checklist,
+body.dark-mode #checklist tr,
 body.dark-mode header #search input:focus {
     border-color: #ffffff;
 }
