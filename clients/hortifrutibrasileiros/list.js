@@ -1,0 +1,70 @@
+// adicione aqui os seus produtos fixos:
+
+var itemsByCategory = {
+    'frutas': [
+        { discr: 'Abacate',       pUnit: '6.00', medida: 'kg'   },
+        { discr: 'Abacaxi',       pUnit: '5.00', medida: 'unid' },
+        { discr: 'Banana',        pUnit: '3.00', medida: 'palm' },
+        { discr: 'Laranja comum',  pUnit: '0.70', medida: 'unid' },
+        { discr: 'Limão',         pUnit: '0.25', medida: 'unid' },
+        { discr: 'Mamão formosa',  pUnit: '3.00', medida: 'kg'   },
+        { discr: 'Mamão havaí',  pUnit: '4.50', medida: 'kg'   },
+        { discr: 'Manga Tommy',   pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Maracujá',      pUnit: '11.0', medida: 'kg'   },
+        { discr: 'Maçã fuji',     pUnit: '10.0', medida: 'kg'   },
+        { discr: 'Maçã gala',     pUnit: '10.0', medida: 'kg'   },
+        { discr: 'Pimentão',      pUnit: '0.70', medida: 'unid' },
+        { discr: 'Tomate',        pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Uva Vitória',   pUnit: '14.0', medida: 'kg'   }
+    ],
+    'verduras': [
+        { discr: 'Alface americana',  pUnit: '1.50', medida: 'unid' },
+        { discr: 'Alface crespa',  pUnit: '1.50', medida: 'unid' },
+        { discr: 'Alface roxa',   pUnit: '1.50', medida: 'unid' },
+        { discr: 'Brócolis',      pUnit: '8.00', medida: 'unid' },
+        { discr: 'Cebolinha',     pUnit: '3.00', medida: 'unid' },
+        { discr: 'Chuchu',        pUnit: '1.00', medida: 'unid' },
+        { discr: 'Coentro',       pUnit: '1.00', medida: 'maço' },
+        { discr: 'Couve-flor',    pUnit: '8.00', medida: 'unid' },
+        { discr: 'Couve',         pUnit: '1.00', medida: 'unid' },
+        { discr: 'Espinafre',     pUnit: '1.00', medida: 'unid' },
+        { discr: 'Manjericão',    pUnit: '1.00', medida: 'unid' },
+        { discr: 'Rúcula',        pUnit: '1.00', medida: 'unid' },
+        { discr: 'Salsa',         pUnit: '1.00', medida: 'unid' },
+        { discr: 'Abobrinha',     pUnit: '4.00', medida: 'kg'   },
+        { discr: 'Hortelã',       pUnit: '1.00', medida: 'unid' },
+        { discr: 'Acelga',        pUnit: '7.00', medida: 'kg'   }
+    ],
+    'hortaliças': [
+        { discr: 'Alho roxo',     pUnit: '22.0', medida: 'kg'   },
+        { discr: 'Alho-poró',     pUnit: '2.00', medida: 'unid' },
+        { discr: 'Batata doce',   pUnit: '3.00', medida: 'kg'   },
+        { discr: 'Batata inglesa',   pUnit: '8.00', medida: 'kg'   },
+        { discr: 'Berinjela',     pUnit: '4.00', medida: 'kg'   },
+        { discr: 'Beterraba',     pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Cará',          pUnit: '7.00', medida: 'kg'   },
+        { discr: 'Cebola branca',  pUnit: '6.00', medida: 'kg'   },
+        { discr: 'Cebola roxa',   pUnit: '6.00', medida: 'kg'   },
+        { discr: 'Cenoura',       pUnit: '9.00', medida: 'kg'   },
+        { discr: 'Gengibre',      pUnit: '20.0', medida: 'kg'   },
+        { discr: 'Macaxeira',     pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Inhame',        pUnit: '7.00', medida: 'kg'   },
+        { discr: 'Jerimum',       pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Jiló',          pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Pimenta de cheiro',  pUnit: '10.0', medida: 'kg'   },
+        { discr: 'Pepino japonês',  pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Pepino',        pUnit: '4.00', medida: 'kg'   },
+        { discr: 'Quiabo ',       pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Repolho roxo',  pUnit: '7.00', medida: 'kg'   },
+        { discr: 'Repolho verde',  pUnit: '4.00', medida: 'kg'   },
+        { discr: 'Maxixe',        pUnit: '5.00', medida: 'kg'   },
+        { discr: 'Alecrim',       pUnit: '1.00', medida: 'unid' },
+        { discr: 'Vagem',         pUnit: '7.00', medida: 'kg'   } 
+    ],
+    'outros': [
+        { discr: 'Barbante',      pUnit: '12.0', medida: 'kg'   },
+        { discr: 'Tempero natural',  pUnit: '2.00', medida: 'unid' },
+        { discr: 'Feijão verde',  pUnit: '14.0', medida: 'kg'   },
+        { discr: 'Goma',          pUnit: '5.00', medida: 'kg'   }
+    ]
+};
