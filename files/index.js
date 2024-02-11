@@ -1,20 +1,42 @@
 $(document).ready(function () {
     var content = `
     <header>
-    <div>
-        <div id="logo"></div>
-        <div id="nav">
-            <button class="button add icon i_plus" onclick="href('#popup');"></button>
-            <div id="search">
-                <button class="icon i_search"></button>
-                <input type="text" />
-                <button hidden class="icon i_close"></button>
+        <div class="main">
+            <div id="logo"></div>
+            <div id="nav">
+                <button class="button add icon i_plus" onclick="href('#popup');"></button>
+                <div id="search">
+                    <button class="icon i_search"></button>
+                    <input type="text" />
+                    <button hidden class="icon i_close"></button>
+                </div>
+                <button class="button share icon i_share" onclick="href('#popup');"></button>
+                <button class="button refresh icon i_refresh"></button>
             </div>
-            <button class="button share icon i_share" onclick="href('#popup');"></button>
-            <button class="button refresh icon i_refresh"></button>
         </div>
-    </div>
+        <div class="list">
+            <div class="categories">
+                <div id="categories">
+                    <div class="category todos active">todos</div>
+                </div>
+            </div>
+            <div class="labels">
+                <div class="discr">DISCRIMINAÇÃO</div>
+                <div class="quant">QUANT.</div>
+                <div class="punit">P. UNIT.</div>
+                <div class="value">TOTAL</div>
+            </div>
+        </div>
     </header>
+
+    <footer>
+        <div class="info left" onclick="href('#popup');"><button class="icon i_list"></button> <span class="itens">0</span> ITENS</div>
+        <div class="button">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="102px" height="48px"><path d="M51.000,47.1000 C69.871,47.1000 85.340,33.477 86.866,15.000 L87.000,15.000 C87.000,6.716 93.716,-0.000 101.1000,-0.000 L101.1000,47.1000 L51.000,47.1000 ZM0.000,47.1000 L0.000,-0.000 C8.284,-0.000 15.000,6.716 15.000,15.000 L15.134,15.000 C16.660,33.477 32.129,47.1000 50.1000,47.1000 L0.000,47.1000 Z"/></svg>
+            <button class="concluir off icon i_print" onclick="href('#popup');"></button>
+        </div>
+        <div class="info right total">TOTAL <span></span></div>
+    </footer>
     
     <div hidden class="warning pay">
         <button class="icon i_warning"></button>
@@ -26,41 +48,57 @@ $(document).ready(function () {
         <div class="content">Nova atualização disponível<br><span></span></div>
         <div id="update" class="button" onclick="href('#popup');"><div>Atualizar</div><div></div></div>
     </div>
-    <section>
-    <div class="head list">
-        <div>
-            <div class="discr">DISCRIMINAÇÃO</div>
-            <div class="quant">QUANT.</div>
-            <div class="punit">P. UNIT.</div>
-            <div class="value">TOTAL</div>
-        </div>
-    </div>
-    <div id="list"></div>
-    <div class="foot list">
-            <div class="info left"><span class="itens">0</span> ITENS</div>
-            <div class="button">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="102px" height="48px"><path d="M51.000,47.1000 C69.871,47.1000 85.340,33.477 86.866,15.000 L87.000,15.000 C87.000,6.716 93.716,-0.000 101.1000,-0.000 L101.1000,47.1000 L51.000,47.1000 ZM0.000,47.1000 L0.000,-0.000 C8.284,-0.000 15.000,6.716 15.000,15.000 L15.134,15.000 C16.660,33.477 32.129,47.1000 50.1000,47.1000 L0.000,47.1000 Z"/></svg>
-                <button class="concluir off icon i_print" onclick="href('#popup');"></button>
-            </div>
-            <div class="info right">TOTAL <span class="total"></span></div>
-    </div>
-    <div class="shadow foot"></div>
-    </section>
+
+    <section></section>
     
     <div class="popup add">
     <div class="head">Adicionar item
         <button class="icon i_close"></button>
     </div>
     <div class="content">
-        <label>Discriminação</label>
-        <input type="text" id="discr" placeholder="Nome do produto" maxlength="22" />
-        <label class="left">Medida</label><label class="right">Valor unitário</label>
-        <input type="text" id="unitType" placeholder="kg, unid, etc" maxlength="4" />
-        <input type="text" placeholder="0,00" inputmode="decimal" id="punit" />
+
+        <div class="fields first">
+            <div class="left middle">
+                <div class="sectitle">Discriminação</div>
+                <div class="field">
+                    <input id="discr" type="text" placeholder="Nome do produto" maxlength="22" />
+                </div>
+            </div>
+            <div class="right middle">
+                <div class="sectitle">Categoria</div>
+                <div class="field">
+                    <select id="category"><option>Selecione</option></select>
+                </div>
+            </div>
+        </div>
+        <div class="fields">
+            <div class="left middle">
+                <div class="sectitle">Medida</div>
+                <div class="field">
+                    <input id="unitType" type="text" placeholder="kg, unid, etc" maxlength="4" />
+                </div>
+            </div>
+            <div class="right middle">
+                <div class="sectitle">Valor unitário</div>
+                <div class="field">
+                    <input id="punit" type="text" placeholder="0,00" inputmode="decimal" />
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="foot">
         <button class="addItem off icon i_check"></button>
     </div>
+    </div>
+    
+    <div class="popup check">
+        <div class="head">Verificar lista atual
+            <button class="icon i_close"></button>
+        </div>
+            <div class="content">
+                <table id="checklist"></table>
+            </div>
     </div>
     
     <div class="popup share">
@@ -73,7 +111,24 @@ $(document).ready(function () {
             <div class="copyCode" id="copyCode"><button class="icon i_scan"></button><br>Copiar código<br> do PIX</div>
         </div>
         <div hidden class="hidden">
-            <input type="text" placeholder="Nome do cliente" />
+            
+        <div class="fields first">
+            <div>
+                <div class="sectitle">Nome do cliente</div>
+                <div class="field">
+                    <input type="text" class="nome_do_cliente" placeholder="Não informado" />
+                </div>
+            </div>
+        </div>  
+        <div class="fields">
+            <div>
+                <div class="sectitle">Observação</div>
+                <div class="field">
+                    <input type="text" class="comentario" placeholder="Nenhum comentário" />
+                </div>
+            </div>
+        </div>
+        
         </div>
         <div hidden class="none">
             <button class="icon i_whatsapp"></button>Compartilhar no WhatsApp
@@ -85,12 +140,29 @@ $(document).ready(function () {
     </div>
     
     <div class="popup concluir">
-    <div class="head">Nome do cliente
+    <div class="head">Imprimir
         <button class="icon i_close"></button>
     </div>
         <div class="content">
-            <input type="text" placeholder="Não informado" />
+
+            <div class="fields first">
+                <div>
+                    <div class="sectitle">Nome do cliente</div>
+                    <div class="field">
+                        <input type="text" class="nome_do_cliente" placeholder="Não informado" />
+                    </div>
+                </div>
+            </div>  
+            <div class="fields">
+                <div>
+                    <div class="sectitle">Observação</div>
+                    <div class="field">
+                        <input type="text" class="comentario" placeholder="Nenhum comentário" />
+                    </div>
+                </div>
+            </div>
             <input type="checkbox" id="pixCheckbox"><label for="pixCheckbox">Incluir QRCode do PIX</label>
+
         </div>
         <div class="foot">
             <button class="finish_print icon i_check"></button>
@@ -122,7 +194,7 @@ $(document).ready(function () {
     </div>
     
     <div id="noItens">Nenhum resultado encontrado.</div>
-    <div class="aviso"><button class="icon i_warning"></button><span></span></div>
+    <div hidden class="aviso"><button class="icon i_warning"></button><span></span></div>
     <div hidden id="blur"></div>
     
     <div class="picIt">
@@ -140,7 +212,8 @@ $(document).ready(function () {
     </table>
     
     <div class="footer">
-        <div>TOTAL › <span class="total"></span></div>
+        <div class="total">TOTAL › <span></span></div>
+        <div class="obs"><button class="emissao icon i_note"></button>OBS. › <span></span></div>
         <div class="pixPay"><span></span><div id="qr-code-container"></div></div>
         <button class="cliente icon i_user"></button>CLIENTE › <span id="cliente"></span><br>
         <button class="emissao icon i_clock"></button>EMISSÃO › <span id="data_atual"></span>, <span id="hora_atual"></span>

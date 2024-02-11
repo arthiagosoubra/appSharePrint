@@ -2,87 +2,113 @@
 
 $(document).ready(function () {
 
-        // VARIÁVEIS DE CLIENTES
-        var titleColorLight = '#f6f6f6';
-        var titleColorDark = '#313131';
-    
-        var metas = '<meta name="description" content="' + description + '">'+
-                    '<title>' + title + '</title>';
-    
-        var link = 'https://arthiagosoubra.github.io/appSharePrint/clients/';
-        var iconLink = link + website + '/';
-        var iconLight = iconLink+'icon.svg';
-        var iconDark = iconLink+'icon_dark.svg';
-    
-        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        function toggleDarkMode() {
-            const darkMode = darkModeMediaQuery.matches;
-            $('body').toggleClass('dark-mode', darkMode);
-    
-            $('meta[name="msapplication-TileColor"]').remove();
-            $('meta[name="theme-color"]').remove();
-    
-            if (darkMode) {
-                $('head').append('<meta name="msapplication-TileColor" content="' + titleColorDark + '">' +
-                                '<meta name="theme-color" content="' + titleColorDark + '">');
-                                $('body.dark-mode header #logo').css('background-image', 'url('+iconDark+')');
-            } else {
-                $('head').append('<meta name="msapplication-TileColor" content="' + titleColorLight + '">' +
-                                '<meta name="theme-color" content="' + titleColorLight + '">');
-                                $('header #logo').css('background-image', 'url('+iconLight+')');
-            }
-            $('header #logo').css('background-size', bgSize + 'px');
+    // VARIÁVEIS DE CLIENTES
+    var titleColorLight = '#FFFFFF';
+    var titleColorDark = '#313131';
+
+    var metas = '<meta name="description" content="' + description + '">'+
+                '<title>' + title + '</title>';
+
+    var link = 'https://arthiagosoubra.github.io/appSharePrint/clients/';
+    var iconLink = link + website + '/';
+    var iconLight = iconLink+'icon.svg';
+    var iconDark = iconLink+'icon_dark.svg';
+
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    function toggleDarkMode() {
+        const darkMode = darkModeMediaQuery.matches;
+        $('body').toggleClass('dark-mode', darkMode);
+
+        $('meta[name="msapplication-TileColor"]').remove();
+        $('meta[name="theme-color"]').remove();
+
+        if (darkMode) {
+            $('head').append('<meta name="msapplication-TileColor" content="' + titleColorDark + '">' +
+                            '<meta name="theme-color" content="' + titleColorDark + '">');
+                            $('body.dark-mode header #logo').css('background-image', 'url('+iconDark+')');
+        } else {
+            $('head').append('<meta name="msapplication-TileColor" content="' + titleColorLight + '">' +
+                            '<meta name="theme-color" content="' + titleColorLight + '">');
+                            $('header #logo').css('background-image', 'url('+iconLight+')');
         }
-        $(metas).appendTo('head');
-        $('head').append('<link rel="icon" href="' + link + website + '/favicon.ico" type="image/x-icon">');
-        $('.header .data').html(data);
-        $('.header .logo').html(logo);
-        $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
-        $('.popup .foot button').css('background-color',color);
-        $('input[type="text"]').css('caret-color',color);
-    
-        toggleDarkMode();
-        darkModeMediaQuery.addListener(toggleDarkMode);
+        $('header #logo').css('background-size', bgSize + 'px');
+    }
+    $(metas).appendTo('head');
+    $('head').append('<link rel="icon" href="' + link + website + '/favicon.ico" type="image/x-icon">');
+    $('.header .data').html(data);
+    $('.header .logo').html(logo);
+    $('button.concluir').css('background','linear-gradient(45deg, '+ colorbutton + ')');
+    $('.popup .foot button').css('background-color',color);
+    $('input[type="text"]').css('caret-color',color);
 
-        $('.warning.update.um').hide();
+    toggleDarkMode();
+    darkModeMediaQuery.addListener(toggleDarkMode);
 
-        ////
+    $('.warning.update.um').hide();
+
+    ////
 
     function gerarDiv(item) {
-        var newItem = $('<div class="item"><div class="line"></div></div>'); // Criar div interna
+        var newItem = $('<div class="item"><div class="line"></div></div>');
         newItem.find('.line').append('<div class="discr">' + item.discr + '</div>');
         newItem.find('.line').append('<div class="quant"><input type="text" inputmode="decimal" maxlength="6" placeholder="' + item.medida + '" /></div>');
         newItem.find('.line').append('<div class="punit"><input type="text" inputmode="decimal" maxlength="6" value="' + item.pUnit + '" /></div>');
         newItem.find('.line').append('<div class="valor">-</div>');
-    
-        var divs = $('section #list .item');
-        var insertIndex = divs.length;
-    
-        divs.each(function (index) {
-            var currentDiscr = $(this).find('.discr').text().toUpperCase();
-            var newDiscr = item.discr.toUpperCase();
-            if (newDiscr < currentDiscr) {
-                insertIndex = index;
-                return false;
-            }
-        });
-    
-        if (insertIndex === divs.length) {
-            $('section #list').append(newItem);
-        } else {
-            divs.eq(insertIndex).before(newItem);
-        }
-    
         return newItem;
-    };
-    
-    items.forEach(function (item) {
-        gerarDiv(item);
+    }
+    function gerarDivs(itemsByCategory) {
+        for (var category in itemsByCategory) {
+            var items = itemsByCategory[category];
+            items.forEach(function(item) {
+                var newItem = gerarDiv(item);
+                newItem.addClass(category);
+                var divs = $('section .item');
+                var insertIndex = divs.length;
+                divs.each(function(index) {
+                    var currentDiscr = $(this).find('.discr').text().toUpperCase();
+                    var newDiscr = item.discr.toUpperCase();
+                    if (newDiscr < currentDiscr) {
+                        insertIndex = index;
+                        return false;
+                    }
+                });
+                if (insertIndex === divs.length) {
+                    $('section').append(newItem);
+                } else {
+                    divs.eq(insertIndex).before(newItem);
+                }
+            });
+        }
+    }
+    gerarDivs(itemsByCategory);
+
+    Object.keys(itemsByCategory).forEach(function(categoria) {
+        $('<div>', {
+            'class': 'category ' + categoria,
+            text: categoria
+        }).appendTo('#categories');
+
+        $('<option>', {
+            value: categoria,
+            text: categoria
+        }).appendTo('#category');
+    });
+
+    $('#categories').on('click', '.category', function() {
+        $('.category').removeClass('active');
+        $(this).addClass('active');
+        var categoria = $(this).text().trim();
+        if (categoria === "todos") {
+            $('.item').show();
+        } else {
+            $('.item').hide();
+            $('.item').filter('.' + categoria).show();
+        }
     });
     
 
     var pressTimer;
-    $('section #list').on("mousedown touchstart", '.item .line', function(event) {
+    $('section').on("mousedown touchstart", '.item .line', function(event) {
         var $item = $(this);
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
@@ -107,42 +133,22 @@ $(document).ready(function () {
     $('.button.refresh').on("mousedown touchstart", function(event) {
         clearTimeout(pressTimer);
         pressTimer = window.setTimeout(function() {
-            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({command: 'limparCache'});
-        location.reload(); // Recarrega a página após limpar o cache
-    }
+            clearServiceWorker();
             navigator.vibrate(50);
         }, 800);
     });
     
-    $('section #list, .button.refresh').on("mouseup touchend", '.item .line', function() {
+    $('section, .button.refresh').on("mouseup touchend", '.item .line', function() {
         clearTimeout(pressTimer);
     });
 
     function clearServiceWorker() {
         if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.getRegistration().then(function(registration) {
-              if (registration) {
-                registration.unregister().then(function() {
-                  caches.keys().then(function(cacheNames) {
-                    return $.when.apply($, $.map(cacheNames, function(cacheName) {
-                      return caches.delete(cacheName);
-                    }));
-                  }).then(function() {
-                    location.reload(true);
-                  });
-                });
-              }
-            });
-          }
+            navigator.serviceWorker.controller.postMessage({command: 'limparCache'});
+            location.reload();
+        }
     }
 
-    if (isIOS()) {
-        $('.item .list input').removeAttr('inputmode');
-        $('.quant input').removeAttr('inputmode');
-        $('.punit input').removeAttr('inputmode');
-    }
-    
     function isIOS() {
         return /iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
@@ -153,10 +159,6 @@ $(document).ready(function () {
     }
 
 
-
-
-
-// Definir formatCurrency fora da função calcularResultado
 function formatCurrency(input) {
     input = input.replace(/\D/g, '');
     input = (input / 100).toFixed(2);
@@ -166,11 +168,11 @@ function formatCurrency(input) {
 $('#punit').on('input', function() {
     this.value = formatCurrency(this.value);
 });
-$('section #list').on('input', '.punit input', function() {
+$('section').on('input', '.punit input', function() {
     this.value = formatCurrency(this.value);
 });
 
-$('section #list').on('input', '.quant input', function() {
+$('section').on('input', '.quant input', function() {
     var valorAtual = $(this).val();
     var novoValor = valorAtual.replace(/,/g, '.');
     $(this).val(novoValor);
@@ -209,7 +211,7 @@ function calcularResultado() {
 
 
     function updateCheckbox() {
-        var rawPixValue = $('.total').text();
+        var rawPixValue = $('.total span').text();
         var total = parseFloat(rawPixValue.replace('R$', '').trim().replace(',', '.')) || 0;
         var pixCheckbox = $('#pixCheckbox');
         if (total < 1) {
@@ -223,7 +225,7 @@ function calcularResultado() {
         }
     }
 
-    $('.total').on('change', updateCheckbox);
+    $('.total span').on('change', updateCheckbox);
 
             
 
@@ -231,7 +233,7 @@ $('.popup.share .block div, header .button, button.concluir, .popup .foot button
 
 
 $(document).on("click", "button.concluir:not(.off)", function() {
-    abrirPopup(".popup.concluir", '.popup.concluir input');
+    abrirPopup(".popup.concluir", '.popup.concluir .nome_do_cliente');
 });
 
 $(document).on("click", "button.concluir.off", function() {
@@ -297,7 +299,7 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
                 total += valor;
             }
         });
-        $('.total').text('R$ ' + total.toFixed(2).replace('.', ','));
+        $('.total span').text('R$ ' + total.toFixed(2).replace('.', ','));
     }
 
     $('#discr').on('input', function() {
@@ -313,7 +315,7 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
         }
     });
 
-    $('section #list').on('input', '.quant input, .punit input', calcularResultado);
+    $('section').on('input', '.quant input, .punit input', calcularResultado);
 
     $(".addItem, #punit").on("click keypress", function (event) {
         if ((event.type === "click" && event.target.tagName !== "INPUT") ||
@@ -322,6 +324,8 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
             var discr = $("#discr").val();
             var discr = capitalizeFirst(discr);
             var pUnit = $("#punit").val();
+            var category = $("#category").val();
+    
             if (discr.trim() === "") {
                 exibirAviso('Preencha o nome do produto!');
                 $("#discr").focus();
@@ -332,9 +336,9 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
                 discr: discr,
                 pUnit: pUnit
             };
-    
             var newItemElement = gerarDiv(newItem);
-            newItemElement.prependTo('section #list');
+            newItemElement.addClass(category);
+            newItemElement.prependTo('section');
     
             $("#unitType, #discr, #punit").val("");
             fecharPopup();
@@ -342,8 +346,9 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
     });
+    
 
-    $('.total').text('R$ 0,00');
+    $('.total span').text('R$ 0,00');
 
     $('.quant input').on('input', function() {
         var valorAtual = $(this).val();
@@ -413,13 +418,22 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
     }
     
     $("header .add").on("click", function () {
-        abrirPopup(".popup.add", '.popup.add input#discr');
+        abrirPopup(".popup.add", '.popup.add #discr');
     });
     
     $("header .share").on("click", function () {
         abrirPopup(".popup.share");
     });
-    
+
+    $("footer .info.left").click(function() {
+        if ($("button.concluir").hasClass('off')) {
+            exibirAviso('Nenhum item selecionado');
+        } else {
+            gerarChecklist();
+            abrirPopup(".popup.check");
+        }
+    });
+
     $(".warning.update #update").on("click", function () {
         abrirPopup(".popup.update");
         atualizarContagemItens();
@@ -429,21 +443,34 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
         fecharPopup();
     });
     
+    $('.popup.concluir .nome_do_cliente').on('input', function(){
+        $('.popup.share .nome_do_cliente').val($(this).val());
+    });
+    $('.popup.concluir .comentario').on('input', function(){
+        $('.popup.share .comentario').val($(this).val());
+    });
 
-$('.popup.concluir input').on('input', function(){
-        $('.popup.share input').val($(this).val());
-      });
-$('.popup.share input').on('input', function(){
-        $('.popup.concluir input').val($(this).val());
-      });
+    $('.popup.share .nome_do_cliente').on('input', function(){
+        $('.popup.concluir .nome_do_cliente').val($(this).val());
+    });
+    $('.popup.share .comentario').on('input', function(){
+        $('.popup.concluir .comentario').val($(this).val());
+    });
     
     function pegarNome() {
-        var nome = $(".popup.concluir input").val();
+        var nome = $(".popup.concluir .nome_do_cliente").val();
+        var obs = $(".popup.concluir .comentario").val();
         var nomeCliente = capitalize(nome);
         if (nomeCliente.trim() === "") {
             $("#cliente").text('Não informado');
         } else {
             $("#cliente").text(nomeCliente);
+        }
+        if (obs.trim() === "") {
+            $(".obs").hide();
+        } else {
+            $(".obs").show();
+            $(".obs span").text(obs);
         }
     }
 
@@ -453,15 +480,12 @@ $('.popup.share input').on('input', function(){
         $('.item .line').each(function () {
             var $item = $(this);
             var inputValue1 = $item.find('.quant input').val().replace('.', ',');
-    
             if (inputValue1.trim() !== "" || $item.hasClass('longClicked')) {
                 var discr = $item.find('.discr').text();
                 var value1type = $item.find('.quant input').attr('placeholder');
                 var inputValue2 = $item.find('.punit input').val().replace('.', ',');
                 var valor = $item.find('.valor').text().replace('.', ',').replace('em falta', 'falta');
-    
                 var newRow = $('<tr></tr>');
-
                 if ($item.hasClass('longClicked')) {
                     newRow.append('<td class="left">-</td>');
                 } else {
@@ -471,38 +495,68 @@ $('.popup.share input').on('input', function(){
                 if ($('.picIt').hasClass('share')) {
                     if (discr.length > 15) {
                         if (discr.charAt(14) !== ' ') {
-                            var newText = discr.substring(0, 14) + '.'; // Substitua o último caractere por um ponto
-                            discr = newText; // Atribua a nova string de texto à variável discr
+                            var newText = discr.substring(0, 14) + '.';
+                            discr = newText;
                         }
                     }
                 } else {
                     if (discr.length > 12) {
                         if (discr.charAt(11) !== ' ') {
-                            var newText = discr.substring(0, 11) + '.'; // Substitua o último caractere por um ponto
-                            discr = newText; // Atribua a nova string de texto à variável discr
+                            var newText = discr.substring(0, 11) + '.';
+                            discr = newText;
                         }
                     }
                 }
-
-
-
                 newRow.append('<td class="left">' + discr + '</td>');
-                
                 if (inputValue2 == valor || $item.hasClass('longClicked')) {
                     newRow.append('<td class="right">-</td>');
                 } else {
                     newRow.append('<td class="right">' + inputValue2 + '</td>');
                 }
-                
                 newRow.append('<td class="right">' + valor + '</td>');
-    
                 $('#tabela').append(newRow);
             }
         });
         generateQRCode();
     } //end
 
-    $('section #list').on('click', '.item .line', function(event) {
+
+    function gerarChecklist() {
+        $('#checklist tr').remove();
+        $('.item .line').each(function () {
+            var $item = $(this);
+            var inputValue1 = $item.find('.quant input').val().replace('.', ',');
+            if (inputValue1.trim() !== "" || $item.hasClass('longClicked')) {
+                var discr = $item.find('.discr').text();
+                var value1type = $item.find('.quant input').attr('placeholder');
+                var inputValue2 = $item.find('.punit input').val().replace('.', ',');
+                var valor = $item.find('.valor').text().replace('.', ',').replace('em falta', 'falta');
+                var newRow = $('<tr></tr>');
+                if ($item.hasClass('longClicked')) {
+                    newRow.append('<td class="left">-</td>');
+                } else {
+                    newRow.append('<td class="left">' + inputValue1 + " " + value1type + '</td>');
+                }
+    
+                if (discr.length > 15) {
+                    if (discr.charAt(14) !== ' ') {
+                        var newText = discr.substring(0, 14) + '.';
+                        discr = newText;
+                    }
+                }
+                newRow.append('<td class="left">' + discr + '</td>');
+                if (inputValue2 == valor || $item.hasClass('longClicked')) {
+                    newRow.append('<td class="right">-</td>');
+                } else {
+                    newRow.append('<td class="right">' + inputValue2 + '</td>');
+                }
+                newRow.append('<td class="right">' + valor + '</td>');
+                $('#checklist').append(newRow);
+            }
+        });
+    } //end
+
+    $('section ').on('click', '.item .line', function(event) {
         var $item = $(this);
         $('.item .line').removeClass('hover');
         $item.addClass('hover');
@@ -515,7 +569,7 @@ $('.popup.share input').on('input', function(){
     });
     
 
-    $(".finish_print, .popup.concluir input").on("click keypress", function (event) {
+    $(".finish_print, .popup.concluir .nome_do_cliente").on("click keypress", function (event) {
         if ((event.type === "click" && event.target.tagName !== "INPUT") ||
             (event.type === "keypress" && event.which === 13)) {
                 $('.picIt').removeClass('share');
@@ -528,36 +582,22 @@ $('.popup.share input').on('input', function(){
 
 
     $(".sharePic").click(function() {
-        var nome = $(".popup.concluir input").val();
-        var nomeCliente = capitalize(nome);
-            if ($("button.concluir").hasClass('off')) {
-                exibirAviso('Nenhum item selecionado');
-            } else {
-                if (nomeCliente.trim() === "") {
-                    $('.popup.share .hidden').fadeIn();
-                    $('.popup.share .block, .none').hide();
-                    $('.popup.share input').focus();
-                } else {
-                    $('.picIt').addClass('share');
-                    pegarNome();
-                    gerarTabela();
-                    $('#qr-code-container').empty();
-                    $('.pixPay span').html('');
-                    sharePrint();
-                    fecharPopup();
-                    exibirAviso('Compartilhe sua imagem...');
-                }
-            }
-        });
+        if ($("button.concluir").hasClass('off')) {
+            exibirAviso('Nenhum item selecionado');
+        } else {
+                $('.popup.share .hidden').fadeIn();
+                $('.popup.share .block, .none').hide();
+                $('.popup.share .nome_do_cliente').focus();
+        }
+    });
 
-    $(".finish_share, .popup.share input").on("click keypress", function (event) {
+    $(".finish_share, .popup.share .nome_do_cliente").on("click keypress", function (event) {
         if ((event.type === "click" && event.target.tagName !== "INPUT") ||
             (event.type === "keypress" && event.which === 13)) {
                 $('.picIt').addClass('share');
                 pegarNome();
                 gerarTabela();
-                $('#qr-code-container').empty();
-                $('.pixPay span').html('');
+                $('.pixpay').hide();
                 sharePrint();
                 fecharPopup();
                 exibirAviso('Compartilhe sua imagem...');
@@ -565,15 +605,11 @@ $('.popup.share input').on('input', function(){
     }); // end
 
 
-
-
-
-
 // GERAR PIX
 var payload = "";
 // Função principal para gerar o QR Code
 function generateQRCode() {
-    var rawPixValue = $('.total').text();
+    var rawPixValue = $('.total span').text();
     var pixValue = parseFloat(rawPixValue.replace('R$', '').trim().replace(',', '.')) || 0;
     
     // Construindo o Payload PIX a partir dos dados adicionados.
@@ -651,7 +687,7 @@ function getCRC16(payload) {
 }
 
 $(".copyCode").click(function() {
-    var rawPixValue = $('.total').text();
+    var rawPixValue = $('.total span').text();
     var pixValue = parseFloat(rawPixValue.replace('R$', '').trim().replace(',', '.')) || 0;
     if (pixValue === 0) {
         exibirAviso('Não há valor neste cupom!');
@@ -671,11 +707,6 @@ $(".copyCode").click(function() {
 }); // end
 
 
-
-
-
-
-
 });
 
 async function sharePrint() {
@@ -689,16 +720,14 @@ async function sharePrint() {
         
         if (navigator.share) {
             const shareData = {
-                title: 'Imprimir',
-                text: 'Confira este cupom fiscal',
+                title: 'Cupom fiscal',
                 files: [file]
             };
             await navigator.share(shareData);
         } else if (navigator.canShare && navigator.canShare({ files: [file] })) {
             await navigator.share({
                 files: [file],
-                title: 'Imprimir',
-                text: 'Confira este cupom fiscal'
+                title: 'Cupom fiscal'
             });
         } else {
             const blob = await fetch(dataUrl).then(res => res.blob());
@@ -713,9 +742,7 @@ async function sharePrint() {
 
             input.click();
         }
-    } catch (e) {
-        exibirAviso('Erro:' + e);
-    }
+    } catch (e) {}
 }
 
 function dataURLtoFile(dataUrl, filename) {
@@ -779,18 +806,16 @@ function href(web) {
 
 function exibirAviso(mensagem) {
     var avisoDiv = $('.aviso');
+    avisoDiv.show(); // mostra
 
-    avisoDiv.find('span').text(mensagem);
+    // Define o atraso de 0.5 segundos antes de exibir a mensagem
+    setTimeout(function() {
+        avisoDiv.find('span').fadeIn().text(mensagem);
 
-    avisoDiv.css({
-        top: '-100px'
-    }).animate({
-        top: 16
-    }, 200, function () {
-        setTimeout(function () {
-            avisoDiv.animate({
-                top: '-100px'
-            }, 200);
-        }, 3000);
-    });
+        // Define o atraso de 3 segundos antes de começar a desvanecer
+        setTimeout(function() {
+            avisoDiv.fadeOut(); // oculta
+            avisoDiv.find('span').hide();
+        }, 3000); // 3 segundos
+    }, 500); // 0.5 segundos
 }
