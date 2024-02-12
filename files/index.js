@@ -2,6 +2,7 @@ $(document).ready(function () {
     var content = `
     <header>
         <div class="main">
+            <div id="menu" class="icon i_menu" onclick="href('#popup');"></div>
             <div id="logo"></div>
             <div id="nav">
                 <button class="button add icon i_plus" onclick="href('#popup');"></button>
@@ -47,6 +48,30 @@ $(document).ready(function () {
         <button class="icon i_warning"></button>
         <div class="content">Nova atualização disponível<br><span></span></div>
         <div id="update" class="button" onclick="href('#popup');"><div>Atualizar</div><div></div></div>
+    </div>
+
+    <div class="menu">
+        <div class="title">Menu<button class="icon i_close"></button></div>
+        <div class="content">
+            <div class="op">
+                <div class="title"><span class="icon i_receipt"></span>Notas salvas</div>
+                <div class="content">
+                    <div class="nota um"><span class="icon i_user"></span>Fulano</div>
+                    <div class="nota dois"><span class="icon i_user"></span>Sicrano</div>
+                    <div class="nota dois"><span class="icon i_user"></span>Beltrano</div>
+                </div>
+            </div>
+            <div class="op">
+                <div class="title"><span class="icon i_receipt"></span>Tema do app</div>
+                <div class="content">
+                    <div class="nota um"><span class="icon i_user"></span>Claro</div>
+                    <div class="nota dois"><span class="icon i_user"></span>Escuro</div>
+                </div>
+            </div>
+            <div class="op"><span class="icon i_heart"></span>Introdução</div>
+            <div class="op"><span class="icon i_whatsapp"></span>Contato</div>
+            <div class="op"><span class="icon i_warning"></span>Sobre</div>
+        </div>
     </div>
 
     <section></section>

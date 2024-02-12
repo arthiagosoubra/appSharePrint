@@ -45,17 +45,18 @@ $(document).ready(function () {
     darkModeMediaQuery.addListener(toggleDarkMode);
 
     $('.warning.update.um').hide();
-
     ////
 
     function gerarDiv(item) {
-        var newItem = $('<div class="item"><div class="line"></div></div>');
+        var randomId = 'item_' + Math.random().toString(36).substr(2, 9); // Gera um ID aleatório
+        var newItem = $('<div class="item" id="' + randomId + '"><div class="line"></div></div>');
         newItem.find('.line').append('<div class="discr">' + item.discr + '</div>');
         newItem.find('.line').append('<div class="quant"><input type="text" inputmode="decimal" maxlength="6" placeholder="' + item.medida + '" /></div>');
         newItem.find('.line').append('<div class="punit"><input type="text" inputmode="decimal" maxlength="6" value="' + item.pUnit + '" /></div>');
         newItem.find('.line').append('<div class="valor">-</div>');
         return newItem;
     }
+    
     function gerarDivs(itemsByCategory) {
         for (var category in itemsByCategory) {
             var items = itemsByCategory[category];
@@ -358,7 +359,7 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
         $(this).val(novoValor);
       });
 
-    $(".button.refresh").click(function() {
+      $(".button.refresh").click(function() {
         location.reload();
       });
 
@@ -393,13 +394,14 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
         }, 300, function () {
             $popup.hide();
         });
+        $('.menu').removeClass('expand');
         $('.popup.share .hidden, .popup.share .none').fadeOut();
         $('.popup.share .block').fadeIn();
         $("#blur").fadeOut();
         window.history.back();
     }
     
-    $("#blur, .popup .head button").on("click", fecharPopup);
+    $("#blur, .icon.i_close").on("click", fecharPopup);
     
     function abrirPopup(selector, inputSelector) {
         var $popup = $(selector);
@@ -418,6 +420,11 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
     
         $("#blur").fadeIn();
     }
+
+    $("header #menu").on("click", function () {
+        $('.menu').addClass('expand');
+        $('#blur').fadeIn();
+    });
     
     $("header .add").on("click", function () {
         abrirPopup(".popup.add", '.popup.add #discr');
@@ -790,6 +797,7 @@ function fecharPopupUrl() {
     }, 300, function () {
         $popup.hide();
     });
+    $('.menu').removeClass('expand');
     $("#blur").fadeOut();
 }
 window.onhashchange = function (e) {
