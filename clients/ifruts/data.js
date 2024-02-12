@@ -1,7 +1,7 @@
 var data = 
 '› Seu Delivery Saudável<br>'+
-'CNPJ› 37.085.118/0001-70<br>'+
-'FONE› (83) 9.8661-2160<br>'+
+'CNPJ› 53.397.119/0001-06<br>'+
+'FONE› (83) 9.9664-1992<br>'+
 'END.› CEASA, CG - PB';
 
 var description = 'Serviço de Cupom Fiscal para ADM da loja iFruts - Seu Delivery Saudável.';
