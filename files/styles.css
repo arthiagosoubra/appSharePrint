@@ -158,7 +158,7 @@ header .button {
     border-bottom-right-radius: 15px;
     color: #fff;
     overflow: hidden;
-    width: 190px;
+    width: fit-content;
     transition: 0.2s;
 }
 .menu.expand {
