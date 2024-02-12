@@ -53,7 +53,7 @@ $(document).ready(function () {
     <div class="menu">
         <div class="title">Menu<button class="icon i_close"></button></div>
         <div class="content">
-            <div class="op">
+            <div class="op" hidden>
                 <div class="title"><span class="icon i_receipt"></span>Notas salvas</div>
                 <div class="content">
                     <div class="nota um"><span class="icon i_user"></span>Fulano</div>
@@ -62,15 +62,15 @@ $(document).ready(function () {
                 </div>
             </div>
             <div class="op">
-                <div class="title"><span class="icon i_receipt"></span>Tema do app</div>
+                <div class="title"><span class="icon i_receipt"></span>Tema (em breve)</div>
                 <div class="content">
                     <div class="nota um"><span class="icon i_user"></span>Claro</div>
                     <div class="nota dois"><span class="icon i_user"></span>Escuro</div>
                 </div>
             </div>
-            <div class="op"><span class="icon i_heart"></span>Introdução</div>
-            <div class="op"><span class="icon i_whatsapp"></span>Contato</div>
-            <div class="op"><span class="icon i_warning"></span>Sobre</div>
+            <div class="op"><span class="icon i_heart"></span>Introdução (em breve)</div>
+            <div class="op"><span class="icon i_whatsapp"></span>Contato (em breve)</div>
+            <div class="op"><span class="icon i_warning"></span>Sobre (em breve)</div>
         </div>
     </div>
 
