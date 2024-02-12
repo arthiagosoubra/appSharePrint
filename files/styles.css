@@ -152,13 +152,13 @@ header .button {
     z-index: 3;
     height: 100vh;
     top: 0;
-    left: -190px;
+    left: -220px;
     box-sizing: border-box;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     color: #fff;
     overflow: hidden;
-    width: fit-content;
+    width: 220px;
     transition: 0.2s;
 }
 .menu.expand {
