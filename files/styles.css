@@ -1090,10 +1090,7 @@ body.dark-mode #blur {
   .i_warning:before { content: "p"; }
   .i_list:before { content: "q"; }
   .i_menu:before { content: "r"; }
-  .i_system:before { content: "s"; }
-  .i_themes:before { content: "t"; }
-  .i_sun:before { content: "u"; }
-  .i_moon:before { content: "v"; }
+  .i_themes:before { content: "s"; }
   
   /* Ubuntu Mono */
 @font-face {
