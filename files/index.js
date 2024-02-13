@@ -61,16 +61,35 @@ $(document).ready(function () {
                     <div class="nota dois"><span class="icon i_user"></span>Beltrano</div>
                 </div>
             </div>
-            <div class="op">
-                <div class="title"><span class="icon i_receipt"></span>Tema (em breve)</div>
-                <div class="content">
-                    <div class="nota um"><span class="icon i_user"></span>Claro</div>
-                    <div class="nota dois"><span class="icon i_user"></span>Escuro</div>
+            <div class="op themes">
+                <div class="title">
+                    <div class="main"><span class="icon i_themes"></span>Tema do app</div>
+                    <div class="sub">Definido pelo sistema</div>
+                </div>
+                <div class="content" hidden>
+                    <div class="theme system"><div class="radio on"><div></div></div>Sistema</div>
+                    <div class="theme light"><div class="radio"><div></div></div>Claro</div>
+                    <div class="theme dark"><div class="radio"><div></div></div>Escuro</div>
                 </div>
             </div>
-            <div class="op"><span class="icon i_heart"></span>Introdução (em breve)</div>
-            <div class="op"><span class="icon i_whatsapp"></span>Contato (em breve)</div>
-            <div class="op"><span class="icon i_warning"></span>Sobre (em breve)</div>
+            <div class="op">
+                <div class="title">
+                    <div class="main"><span class="icon i_heart"></span>Introdução</div>
+                    <div class="sub">Conhecer o aplicativo</div>
+                </div>
+            </div>
+            <div class="op">
+                <div class="title">
+                    <div class="main"><span class="icon i_whatsapp"></span>Contato</div>
+                    <div class="sub">Erros, sugestões, etc</div>
+                </div>
+            </div>
+            <div class="op">
+                <div class="title">
+                    <div class="main"><span class="icon i_warning"></span>Sobre</div>
+                    <div class="sub">Mais informações</div>
+                </div>
+            </div>
         </div>
     </div>
 

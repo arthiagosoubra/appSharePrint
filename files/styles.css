@@ -62,7 +62,6 @@ header .main  {
     margin: 0 auto;
 }
 header #menu {
-    color: #fff;
     font-size: 22px;
     position: absolute;
     margin: auto;
@@ -148,24 +147,21 @@ header .button {
 /* menu */
 .menu {
     position: fixed;
-    background: #313131;
     z-index: 3;
     height: 100vh;
     top: 0;
-    left: -250px;
+    left: -240px;
     box-sizing: border-box;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    color: #fff;
     overflow: hidden;
-    width: 250px;
+    width: 240px;
     transition: 0.2s;
 }
 .menu.expand {
     left: 0;
 }
 .menu > .title {
-    background: #414141;
     width: 100%;
     height: 48px;
     line-height: 48px;
@@ -174,7 +170,6 @@ header .button {
     position: relative;
 }
 .menu .title button {
-    color: #fff;
     position: absolute;
     right: 0;
     margin: auto;
@@ -182,6 +177,10 @@ header .button {
     bottom: 0;
     width: 48px;
     font-size: 22px;
+}
+.menu .op .title .sub {
+    font-size: 14px;
+    padding-left: 18px;
 }
 .menu > .content {
     padding: 0 24px;
@@ -633,8 +632,7 @@ button.addItem.off, button.concluir.off {
 }
 input[type="checkbox"] {
     display: none;
-}
-input[type="checkbox"] + label {
+}t[type="checkbox"] + label {
     position: relative;
     padding-left: calc(26px + 12px);
     cursor: pointer;
@@ -657,7 +655,7 @@ input[type="checkbox"]:checked + label:before {
     font-family: 'icons';
     text-align: center;
 }
-label {
+.popup label {
     font-size: 14px;
     margin-left: 8px;
     margin-top: 12px;
@@ -853,10 +851,49 @@ table {
 footer .info button {
     font-size: 18px;
 }
-
+.theme {
+    clear: both;
+    height: 32px;
+    line-height: 32px;
+    position: relative;
+    padding-left: 24px;
+}
+.theme .radio {
+    width: 18px;
+    height: 18px;
+    float: left;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 2px solid;
+    box-sizing: border-box;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+.radio.on div {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    border: 2px solid;
+    box-sizing: border-box;
+}
+.op .title .main:after {
+    content: ' (em breve)';
+    font-size: 12px;
+    opacity: 0.6;
+}
 /* THEMES */
 header, section .line,
 .popup,
+.menu,
 .item .line.active,
 body.dark-mode .content .block div,
 body.dark-mode .click:after {
@@ -888,13 +925,17 @@ body.dark-mode label,
 body.dark-mode footer .info button,
 body.dark-mode #checklist,
 .content .block div button,
-body.dark-mode #checklist tr  {
+body.dark-mode #checklist tr,
+body.dark-mode .menu,
+body.dark-mode .menu .title button,
+body.dark-mode header #menu {
     color: #ffffff;
 }
 body,
 .popup input,
 select,
-.popup .head {
+.popup .head,
+.menu > .title {
     background-color: #ededed;
 }
 .popup .foot {
@@ -921,6 +962,7 @@ header .labels div,
 #search button.i_search,
 footer .info,
 .popup input::placeholder,
+.menu .op .title .sub,
 #noItens {
     color: #626262;
 }
@@ -937,6 +979,8 @@ body.dark-mode .content .block div button,
 #category,
 footer .info button,
 #checklist,
+header #menu,
+.menu,
 #checklist tr {
     color: #212121;
 }
@@ -973,19 +1017,23 @@ body.dark-mode #categories .category,
 body.dark-mode #search button.icon.i_close,
 body.dark-mode .popup .head,
 body.dark-mode .line.active,
+body.dark-mode .menu,
 body.dark-mode section .line {
     background-color: #313131;
+}
+body.dark-mode .menu > .title {
+    background-color: #414141;
 }
 body.dark-mode .popup .foot {
     border-color: #414141;
 }
-
 body.dark-mode header .main #nav > button {
     background-color: #515151;
 }
 body.dark-mode header .labels div,
 body.dark-mode #search button.i_search,
 body.dark-mode footer .info,
+body.dark-mode .menu .op .title .sub,
 body.dark-mode .popup input::placeholder {
     color: #999999;
 }
@@ -1042,6 +1090,10 @@ body.dark-mode #blur {
   .i_warning:before { content: "p"; }
   .i_list:before { content: "q"; }
   .i_menu:before { content: "r"; }
+  .i_system:before { content: "s"; }
+  .i_themes:before { content: "t"; }
+  .i_sun:before { content: "u"; }
+  .i_moon:before { content: "v"; }
   
   /* Ubuntu Mono */
 @font-face {

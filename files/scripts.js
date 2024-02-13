@@ -45,6 +45,34 @@ $(document).ready(function () {
     darkModeMediaQuery.addListener(toggleDarkMode);
 
     $('.warning.update.um').hide();
+
+    $('.theme.system').on("click", function () {
+        toggleDarkMode();
+        $('.radio').removeClass('on');
+        $(this).find('.radio').addClass('on');
+        $('.menu .op.themes .title .sub').text('Definido pelo sistema');
+    });
+    $('.theme.dark').on("click", function () {
+        $('body').addClass('dark-mode');
+        $('.radio').removeClass('on');
+        $(this).find('.radio').addClass('on');
+        $('.menu .op.themes .title .sub').text('Modo escuro ativado');
+        $('head').append('<meta name="msapplication-TileColor" content="' + titleColorDark + '">' +
+                        '<meta name="theme-color" content="' + titleColorDark + '">');
+                        $('body.dark-mode header #logo').css('background-image', 'url('+iconDark+')');
+    });
+    $('.theme.light').on("click", function () {
+        $('body').removeClass('dark-mode');
+        $('.radio').removeClass('on');
+        $(this).find('.radio').addClass('on');
+        $('.menu .op.themes .title .sub').text('Modo claro ativado');
+        $('head').append('<meta name="msapplication-TileColor" content="' + titleColorLight + '">' +
+                        '<meta name="theme-color" content="' + titleColorLight + '">');
+                        $('header #logo').css('background-image', 'url('+iconLight+')');
+    });
+    $('.op.themes .title').on("click", function () {
+        $('.op.themes .content').fadeToggle();
+    });
     ////
 
     function gerarDiv(item) {
