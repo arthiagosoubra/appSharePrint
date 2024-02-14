@@ -283,7 +283,6 @@ section .obs, .itens {
 }
 .line.hover {
     z-index: 1;
-    box-shadow: 0 0 32px rgba(0, 0, 0, 0.25);
 }
 .item > line.longClicked .quant input::placeholder {
     color: transparent;
@@ -895,7 +894,6 @@ footer .info button {
 header, section .line,
 .popup,
 .menu,
-.item .line.active,
 body.dark-mode .content .block div,
 body.dark-mode .click:after {
     background-color: #ffffff;
@@ -903,7 +901,6 @@ body.dark-mode .click:after {
 #search button.icon.i_close,
 #categories .category,
 header .main #nav > button,
-.line.active input,
 .popup .foot button,
 .item .line.longClicked,
 .content .block div,
@@ -911,7 +908,6 @@ header .main #nav > button,
 body.dark-mode #categories .category,
 body.dark-mode header .main #nav > button,
 body.dark-mode section .line,
-.line.active,
 body.dark-mode .line input,
 body.dark-mode footer .info span,
 body.dark-mode #search input,
@@ -986,9 +982,9 @@ header #menu,
     color: #212121;
 }
 #categories .category.active,
-.line.active,
 header #search input:focus,
 #checklist,
+.item .line.longClicked,
 #checklist tr {
     border-color: #212121;
 }
@@ -1017,7 +1013,6 @@ body.dark-mode header,
 body.dark-mode #categories .category,
 body.dark-mode #search button.icon.i_close,
 body.dark-mode .popup .head,
-body.dark-mode .line.active,
 body.dark-mode .menu,
 body.dark-mode section .line {
     background-color: #313131;
@@ -1041,6 +1036,7 @@ body.dark-mode .popup input::placeholder {
 body.dark-mode #categories .category.active,
 body.dark-mode #checklist,
 body.dark-mode #checklist tr,
+body.dark-mode .item .line.longClicked,
 body.dark-mode header #search input:focus {
     border-color: #ffffff;
 }

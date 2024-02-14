@@ -226,12 +226,10 @@ function calcularResultado() {
             theItem.find('.valor').text('-');
         }
         
-        if (parseFloat(inputValue1) > 0) {
+        if (parseFloat(inputValue1) > 0 ) {
             theItem.css('background-color',color);
-            theItem.removeClass('active');
         } else {
             theItem.css('background-color','');
-            theItem.addClass('active');
         }
 
     };
@@ -557,7 +555,6 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
         generateQRCode();
     } //end
 
-
     function gerarChecklist() {
         $('#checklist tr').remove();
         $('.item .line').each(function () {
@@ -637,7 +634,7 @@ $('.quant input, .punit input').on('input', function () { atualizarContagemItens
                 $('.pixpay').hide();
                 sharePrint();
                 fecharPopup();
-                exibirAviso('Compartilhe sua imagem...');
+                exibirAviso('Compartilhe o cupom...');
         }
     }); // end
 
